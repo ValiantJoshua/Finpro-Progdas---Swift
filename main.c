@@ -43,6 +43,8 @@ int main (){
 
 	int pick;//Pilihan Renewable Energy yang mana
 	int initialCost, energy; //Initial Cost dan Energy
+	
+	printf("Pilih Renewable Energy yang ingin digunakan :\n1. Panel Surya\n2. Kincir Angin\n3. Kincir Air");
 
  return 0;
 }
