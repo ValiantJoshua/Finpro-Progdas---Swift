@@ -20,8 +20,8 @@ int main (){
 	//Kenapa gak pake for loop? -Rasya
 	do{
 		printf("\nPERANGKAT-%d\n", i+1);
-		getchar();
 		printf("Nama perangkat: ");
+		getchar();
 		scanf(" %[^\n]", perangkat[i].nama);
 
 		printf("Daya (Watt): ");
@@ -41,8 +41,21 @@ int main (){
   		perangkat= (data_perangkat*) realloc (perangkat, (i+1)*sizeof(data_perangkat));
 	} while(input == 1);
 
-	int pick;//Pilihan Renewable Energy yang mana
+	int pick, jml;//Pilihan Renewable Energy yang mana, Jumlah alat renewable energy
 	int initialCost, energy; //Initial Cost dan Energy
-
+	
+	printf("Pilih Renewable Energy yang ingin digunakan :\n1. Panel Surya\n2. Kincir Angin\n3. Kincir Air\n : ");
+	scanf("%d", &pick);
+	
+	//Harga masih placeholder, Energy dalam KwH
+	printf("Tentukan Harga awal dari alat Renewable Energy : ");
+	scanf("%d" ,&initialCost);
+	
+	printf("Tentukan Energy yang dihasilkan oleh alat Renewable Energy : ");
+	scanf("%d", &energy);
+	
+	printf("Tentukan jumlah alat Renewable Energy : ");
+	scanf("%d", &jml);
+	
  return 0;
 }
