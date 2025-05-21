@@ -57,5 +57,5 @@ int main (){
 	printf("Tentukan jumlah alat Renewable Energy : ");
 	scanf("%d", &jml);
 	
- return 0;
+    return 0;
 }
