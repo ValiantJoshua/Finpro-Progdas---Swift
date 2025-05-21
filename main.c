@@ -44,5 +44,5 @@ int main (){
 	int pick;//Pilihan Renewable Energy yang mana
 	int initialCost, energy; //Initial Cost dan Energy
 
- return 0;
+	return 0;
 }
