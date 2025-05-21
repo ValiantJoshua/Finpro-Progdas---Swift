@@ -20,8 +20,8 @@ int main (){
 	//Kenapa gak pake for loop? -Rasya
 	do{
 		printf("\nPERANGKAT-%d\n", i+1);
-		getchar();
 		printf("Nama perangkat: ");
+		getchar();
 		scanf(" %[^\n]", perangkat[i].nama);
 
 		printf("Daya (Watt): ");
