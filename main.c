@@ -37,7 +37,7 @@ int main (){
 			break;
 		}
 		//jika masih lanjut, maka tambah ukuran array (+ 1)
-  		perangkat = (Perangkat *) realloc (perangkat, 1 * sizeof(Perangkat));
+  		perangkat = (Perangkat *) realloc (perangkat, (i + 1) * sizeof(Perangkat));
 	} while (input == 1);
 
 	int pick, jml; //Pilihan Renewable Energy yang mana, Jumlah alat renewable energy
