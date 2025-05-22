@@ -8,10 +8,9 @@ typedef struct {
 } Perangkat;
 
 typedef struct {
-	float harga_alat;
-	float daya_alat;
+	int harga_alat;
+	int daya_alat;
 	int jumlah_alat;
-	float biaya_listrik_alat;
 } Alat;
 
 void install_panel_surya (float harga_kwh, float biaya_listrik[], Alat panel_surya) {
@@ -30,17 +29,13 @@ void install_turbin_air (float harga_kwh, float biaya_listrik[], Alat turbin_air
 }
 
 int main (){
-	int input; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak
-	float harga_kwh;
+	int pilihan, i = 0; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan i = counter
+	float harga_kwh = 1444.7;
 	Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
-	int i = 0; //counter
 
 	printf("=========================================\n");
 	printf("        Renewable Energy Simulator       \n");
 	printf("=========================================\n");
-	//Kenapa gak pake for loop? -Rasya
-	printf("Harga listrik per kWh : ");
-	scanf("%f", &harga_kwh);
 
 	do {
 		printf("\nPerangkat Elektronik-%d\n", i+1);
@@ -55,15 +50,15 @@ int main (){
 		scanf("%f", &perangkat[i].durasi_perangkat); 
 
 		printf("\nApakah Anda ingin menambahkan perangkat lagi? (1 = Ya, 0 = Tidak): ");
-		scanf("%d", &input);
-		if (input == 0) {
+		scanf("%d", &pilihan);
+		if (pilihan == 0) {
 			break;
 		}
 		//jika masih lanjut, maka tambah ukuran array (+ 1)
   		perangkat = (Perangkat *) realloc (perangkat, (i + 2) * sizeof(Perangkat));
 
 		i++;
-	} while (input == 1);
+	} while (pilihan == 1);
 
 	float total_kwh[2] = {0};
 	float biaya_listrik[2] = {0};
@@ -75,55 +70,41 @@ int main (){
 
 	biaya_listrik[1] = biaya_listrik[0];
 
-	Alat panel_surya, turbin_angin, turbin_air;
-	int pilihan;
+	Alat panel_surya = {
+		.harga_alat = 2000000,
+		.daya_alat = 400
+	};
+	Alat turbin_angin = {
+		.harga_alat = 4000000,
+		.daya_alat = 400
+	};
+	Alat turbin_air = {
+		.harga_alat = 2000000,
+		.daya_alat = 400
+	};
 
-	do {
-		printf("\nAlat Renewable Energy yang ingin digunakan :\n1. Panel Surya\n2. Turbin Angin\n3. Turbin Air\n4. Selesai\nPilihan : ");
-		scanf("%d", &pilihan);
+	printf("Alat Renewable Energy\n");
+	printf("1. Panel Surya\n");
+	printf("Harga alat : Rp%d\n", panel_surya.harga_alat);
+	printf("Daya alat : %d W\n", panel_surya.daya_alat);
+	printf("\n2. Turbin Angin\n");
+	printf("Harga alat : Rp%d\n", turbin_angin.harga_alat);
+	printf("Daya alat : %d W\n", turbin_angin.daya_alat);
+	printf("\n3. Turbin Air\n");
+	printf("Harga alat : Rp%d\n", turbin_air.harga_alat);
+	printf("Daya alat : %d W\n", turbin_air.daya_alat);
 
-		switch (pilihan) {
-			case 1:
-				printf("\nHarga dari Panel Surya : ");
-				scanf("%f" , &panel_surya.harga_alat);
+	printf("\nInput berapa jumlah Panel Surya yang diinginkan : ");
+	scanf("%d", panel_surya.jumlah_alat);
+	printf("Input berapa jumlah Turbin Angin yang diinginkan : ");
+	scanf("%d", turbin_angin.jumlah_alat);
+	printf("Input berapa jumlah Turbin Air yang diinginkan : ");
+	scanf("%d", turbin_air.jumlah_alat);
 	
-				printf("Daya yang dihasilkan Panel Surya per hari (kWh) : ");
-				scanf("%f", &panel_surya.daya_alat);
 	
-				printf("Jumlah Panel Surya : ");
-				scanf("%d", &panel_surya.jumlah_alat);
-
-				install_panel_surya(harga_kwh, biaya_listrik, panel_surya);
-				break;
-			case 2:
-				printf("\nHarga dari Turbin Angin : ");
-				scanf("%f" ,&turbin_angin.harga_alat);
-	
-				printf("Daya yang dihasilkan Turbin Angin (kWh) : ");
-				scanf("%f", &turbin_angin.daya_alat);
-	
-				printf("Jumlah Turbin Angin : ");
-				scanf("%d", &turbin_angin.jumlah_alat);
-
-				install_turbin_angin(harga_kwh, biaya_listrik, turbin_angin);
-				break;
-			case 3:
-				printf("\nHarga dari Turbin Air : ");
-				scanf("%f" ,&turbin_air.harga_alat);
-	
-				printf("Daya yang dihasilkan Turbin Air (kWh) : ");
-				scanf("%f", &turbin_air.daya_alat);
-	
-				printf("Jumlah Turbin Air : ");
-				scanf("%d", &turbin_air.jumlah_alat);
-
-				install_turbin_air(harga_kwh, biaya_listrik, turbin_air);
-				break;
-			case 4:
-				break;
-		}
-
-	} while (pilihan != 4);
 	
     return 0; //selesai
 }
+
+
+
