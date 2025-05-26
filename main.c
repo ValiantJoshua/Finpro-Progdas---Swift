@@ -10,30 +10,20 @@ typedef struct {
 typedef struct {
 	int harga_alat;
 	int daya_alat;
+	int durasi_alat;
 	int jumlah_alat;
 } Alat;
 
-void install_panel_surya (float harga_kwh, float biaya_listrik[], Alat panel_surya) {
-	biaya_listrik[1] += panel_surya.harga_alat * panel_surya.jumlah_alat;
-	biaya_listrik[1] -= panel_surya.daya_alat * harga_kwh * panel_surya.jumlah_alat;
-}
-
-void install_turbin_angin (float harga_kwh, float biaya_listrik[], Alat turbin_angin) {
-	biaya_listrik[1] += turbin_angin.harga_alat * turbin_angin.jumlah_alat;
-	biaya_listrik[1] -= turbin_angin.daya_alat * harga_kwh * turbin_angin.jumlah_alat;
-}
-
-void install_turbin_air (float harga_kwh, float biaya_listrik[], Alat turbin_air) {
-	biaya_listrik[1] += turbin_air.harga_alat * turbin_air.jumlah_alat;
-	biaya_listrik[1] -= turbin_air.daya_alat * harga_kwh * turbin_air.jumlah_alat;
+void install_alat (float harga_kwh, float biaya_listrik[], Alat alat) {
+	biaya_listrik[1] += alat.harga_alat * alat.jumlah_alat;
+	biaya_listrik[1] -= alat.daya_alat * alat.durasi_alat * harga_kwh * alat.jumlah_alat * 30 / 1000;
 }
 
 int main (){
-	int pilihan, n = 0; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan i = counter
+	int pilihan, n = 0; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
 	float harga_kwh = 1444.7;
 	float total_kwh[2] = {0};
 	float biaya_listrik[2] = {0};
-	Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
 
 	printf("=========================================\n");
 	printf("        Renewable Energy Simulator       \n");
@@ -46,6 +36,7 @@ int main (){
 	scanf("%d", &pilihan);
 
 	if (pilihan == 1) {
+		Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
 		do {
 			printf("\nPerangkat Elektronik - %d\n", n + 1);
 			printf("Nama : ");
@@ -85,36 +76,47 @@ int main (){
 	total_kwh[1] = total_kwh[0];
 	biaya_listrik[1] = biaya_listrik[0];
 
-	Alat panel_surya = {
-		.harga_alat = 2000000,
-		.daya_alat = 400
-	};
-	Alat turbin_angin = {
-		.harga_alat = 4000000,
-		.daya_alat = 400
-	};
-	Alat turbin_air = {
-		.harga_alat = 2000000,
-		.daya_alat = 400
-	};
+	Alat alat[6] = {
+        {.harga_alat = 600000,   .daya_alat = 100,  .durasi_alat = 5, .jumlah_alat = 0}, // panel_surya1
+        {.harga_alat = 1800000,  .daya_alat = 300,  .durasi_alat = 5, .jumlah_alat = 0}, // panel_surya2
+        {.harga_alat = 2600000,  .daya_alat = 550,  .durasi_alat = 5, .jumlah_alat = 0}, // panel_surya3
+        {.harga_alat = 4000000,  .daya_alat = 300,  .durasi_alat = 8, .jumlah_alat = 0}, // turbin_angin1
+        {.harga_alat = 8000000,  .daya_alat = 800,  .durasi_alat = 8, .jumlah_alat = 0}, // turbin_angin2
+        {.harga_alat = 10000000, .daya_alat = 1000, .durasi_alat = 8, .jumlah_alat = 0}  // turbin_angin3
+    };
 
 	printf("\nAlat Renewable Energy\n");
-	printf("1. Panel Surya\n");
-	printf("Harga alat : Rp%d\n", panel_surya.harga_alat);
-	printf("Daya alat : %d W\n", panel_surya.daya_alat);
-	printf("\n2. Turbin Angin\n");
-	printf("Harga alat : Rp%d\n", turbin_angin.harga_alat);
-	printf("Daya alat : %d W\n", turbin_angin.daya_alat);
-	printf("\n3. Turbin Air\n");
-	printf("Harga alat : Rp%d\n", turbin_air.harga_alat);
-	printf("Daya alat : %d W\n", turbin_air.daya_alat);
+	while (pilihan != 8) {
+		printf("1. Panel Surya 100 W   (+-15 kWh/bulan)   (Rp600.000)\n");
+		printf("2. Panel Surya 300 W   (+-45 kWh/bulan)   (Rp1.800.000)\n");
+		printf("3. Panel Surya 550 W   (+-82,5 kWh/bulan) (Rp2.600.000)\n");
+		printf("4. Turbin Angin 300 W  (+-72 kWh/bulan)   (Rp4.000.000)\n");
+		printf("5. Turbin Angin 800 W  (+-192 kWh/bulan)  (Rp8.000.000)\n");
+		printf("6. Turbin Angin 1000 W (+-240 kWh/bulan)  (Rp10.000.000)\n");
+		printf("7. Lihat isi keranjang\n");
+		printf("8. Selesai\n");
+		printf("Pilihan : ");
+		scanf("%d", &pilihan);
 
-	printf("\nInput berapa jumlah Panel Surya yang diinginkan : ");
-	scanf("%d", panel_surya.jumlah_alat);
-	printf("Input berapa jumlah Turbin Angin yang diinginkan : ");
-	scanf("%d", turbin_angin.jumlah_alat);
-	printf("Input berapa jumlah Turbin Air yang diinginkan : ");
-	scanf("%d", turbin_air.jumlah_alat);
+		switch (pilihan) {
+			case 1:
+
+			case 2:
+
+			case 3:
+
+			case 4:
+
+			case 5:
+
+			case 6:
+
+			case 7:
+				
+			case 8:
+		}
+		
+	}
 	
     return 0; //selesai
 }
