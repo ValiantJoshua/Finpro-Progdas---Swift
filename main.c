@@ -91,7 +91,7 @@ do{
         {.harga_alat = 4000000,  .kwh_alat = 72,   .jumlah_alat = 0}, // turbin_angin1
         {.harga_alat = 8000000,  .kwh_alat = 192,  .jumlah_alat = 0}, // turbin_angin2
         {.harga_alat = 10000000, .kwh_alat = 240,  .jumlah_alat = 0}  // turbin_angin3
-    };
+	};
 
 	int temp;
 
@@ -166,80 +166,85 @@ do{
 							printf("Jumlah : %d\n", alat[0].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[0].jumlah_alat){
 								alat[0].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[0].jumlah_alat);
-						
-							break;
+						break;
+
 						case 2:
 							do {
 							printf("Jumlah : %d\n", alat[1].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[1].jumlah_alat){
 								alat[1].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[1].jumlah_alat);
-							break;
+						break;
+
 						case 3:
 							do {
 							printf("Jumlah : %d\n", alat[2].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[2].jumlah_alat){
 								alat[2].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[2].jumlah_alat);
-							break;
+						break;
+
 						case 4:
 							do {
 							printf("Jumlah : %d\n", alat[3].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[3].jumlah_alat){
 								alat[3].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[3].jumlah_alat);
-							break;
+						break;
+
 						case 5:
 							do {
 							printf("Jumlah : %d\n", alat[4].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[4].jumlah_alat){
 								alat[4].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[4].jumlah_alat);
-							break;
+						break;
+
 						case 6:
 							do {
 							printf("Jumlah : %d\n", alat[5].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[5].jumlah_alat){
 								alat[5].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[5].jumlah_alat);
-							break;
+						break;
+
 						case 7:
 							break;
 					}
@@ -260,7 +265,9 @@ do{
 	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
 	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
 
-    printf("========== RUMAHMU ==========\n");
+	
+
+    printf("\n========== RUMAHMU ==========\n");
     printf("      ________________\n");
     printf("     /                 \\\n");
     printf("    /___________________\\\n");
