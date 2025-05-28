@@ -14,6 +14,7 @@ typedef struct {
 	int jumlah_alat;
 } Alat;
 
+/*
 void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untuk mengecek saat ingin mengurang dari keranjang
 	if(temp >alat[index_alat].jumlah_alat){
 		printf("Input Invalid. Jumlah alat yang ingin dikurangkan lebih sedikit dari keranjang");
@@ -21,6 +22,7 @@ void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untu
 		alat[index_alat].jumlah_alat -= temp;
 	}
 }
+	*/ 
 
 int main (){
 	int pilihan, n = 0, i; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
@@ -29,6 +31,7 @@ int main (){
 	float biaya_listrik_pln[2] = {0};
 	float emisi_karbon[2] = {0};
 	int panelSurya = 0, turbinAngin = 0;
+	Perangkat *perangkat = NULL;
 
 	printf("=========================================\n");
 	printf("        Renewable Energy Simulator       \n");
@@ -42,7 +45,7 @@ do{
 		scanf("%d", &pilihan);
 
 			if (pilihan == 1) {
-		Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
+				Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
 			do {
 				printf("\nPerangkat Elektronik - %d\n", n + 1);
 				printf("Nama : ");
@@ -79,7 +82,7 @@ do{
 			printf("\nInput tidak sesuai, Coba kembali\n");
 
 		}
-	}while(pilihan !=1 || pilihan!=2);
+	}while(pilihan !=1 || pilihan != 2);
 
 
 	biaya_listrik_pln[0] = total_kwh_pln[0] * harga_kwh;
@@ -97,7 +100,7 @@ do{
         {.harga_alat = 4000000,  .kwh_alat = 72,   .jumlah_alat = 0}, // turbin_angin1
         {.harga_alat = 8000000,  .kwh_alat = 192,  .jumlah_alat = 0}, // turbin_angin2
         {.harga_alat = 10000000, .kwh_alat = 240,  .jumlah_alat = 0}  // turbin_angin3
-    };
+	};
 
 	int temp;
 
@@ -172,80 +175,85 @@ do{
 							printf("Jumlah : %d\n", alat[0].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[0].jumlah_alat){
 								alat[0].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[0].jumlah_alat);
-						
-							break;
+						break;
+
 						case 2:
 							do {
 							printf("Jumlah : %d\n", alat[1].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[1].jumlah_alat){
 								alat[1].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[1].jumlah_alat);
-							break;
+						break;
+
 						case 3:
 							do {
 							printf("Jumlah : %d\n", alat[2].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[2].jumlah_alat){
 								alat[2].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[2].jumlah_alat);
-							break;
+						break;
+
 						case 4:
 							do {
 							printf("Jumlah : %d\n", alat[3].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[3].jumlah_alat){
 								alat[3].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[3].jumlah_alat);
-							break;
+						break;
+
 						case 5:
 							do {
 							printf("Jumlah : %d\n", alat[4].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[4].jumlah_alat){
 								alat[4].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[4].jumlah_alat);
-							break;
+						break;
+
 						case 6:
 							do {
 							printf("Jumlah : %d\n", alat[5].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-
 							if (temp <= alat[5].jumlah_alat){
 								alat[5].jumlah_alat -= temp;
+								break;
 							} else{
 								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
 							}
 						} while(temp>alat[5].jumlah_alat);
-							break;
+						break;
+
 						case 7:
 							break;
 					}
@@ -260,7 +268,7 @@ do{
 	}
 	
 	int jumlahBulan;
-	printf("Tentukan Berapa lama simulasi berjalan (bulan): ");
+	printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
 	scanf("%d", &jumlahBulan);
 	
 	for (i = 0; i < 6; i++) {
@@ -271,7 +279,24 @@ do{
 	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
 	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
 
-    printf("========== RUMAHMU ==========\n");
+	printf("================== Output ==============\n");
+	float persen_penghematan = ((total_kwh_pln[0]*jumlahBulan)-(total_kwh_pln[1]*jumlahBulan))/(total_kwh_pln[0]*jumlahBulan) *100;
+	float persen_pengurangan_emisi = ((emisi_karbon[0] - emisi_karbon[1]) / emisi_karbon[0]) * 100;
+
+	printf("Energi yang dihemat perbulan   : %.2f\n",total_kwh_pln[0]-total_kwh_pln[1] );
+	printf("Presentase pengehematan Energi : %.2f%%\n", persen_penghematan); 
+	printf("presentase berkurangnya Emisi  : %.2f%%\n", persen_pengurangan_emisi);
+	
+	printf("\n+==================================================================\n");
+	printf("| %-20s| %-20s| %-20s|\n", "PERBANDINGAN ENERGI", "Non-Renewable", "Renewable");
+	printf("+==================================================================\n");
+	printf("| %-20s| Rp %-17.2f| Rp %-17.2f|\n", "Biaya/Bulan", biaya_listrik_pln[0], biaya_listrik_pln[1]);
+	printf("| %-20s| Rp %-17.2f| Rp %-17.2f|\n", "Biaya Akhir Simulasi", biaya_listrik_pln[0]*jumlahBulan, biaya_listrik_pln[1]*jumlahBulan);
+	printf("| %-20s| %-16.2f Kwh| %-16.2f Kwh|\n", "Total KWH", total_kwh_pln[0]*jumlahBulan, total_kwh_pln[1]*jumlahBulan);
+	printf("| %-20s| %-20.2f| %-20.2f|\n", "Emisi Karbon", emisi_karbon[0]*jumlahBulan, emisi_karbon[1]*jumlahBulan);
+	printf("+==================================================================\n");
+
+    printf("\n========== RUMAHMU ==========\n");
     printf("      ________________\n");
     printf("     /                 \\\n");
     printf("    /___________________\\\n");
@@ -325,20 +350,6 @@ do{
         printf("             |       ");
     }
     printf("\n");
-    
-    //Tabel Perbandingan Energi Non-Renewable dan Renewable
-    printf("DATA ENERGI\nNon-Renewable\n");
-	printf("Biaya Listrik per Bulan           : %.2f\n", biaya_listrik_pln[0]);
-	printf("Biaya Listrik pada Akhir Simulasi : %.2f\n", biaya_listrik_pln[0]*jumlahBulan);
-	printf("Total KWH                         : %.2f\n", total_kwh_pln[0]*jumlahBulan);
-	printf("Emisi Karbon                      : %.2f\n", emisi_karbon[0]*jumlahBulan);
-	printf("Renewable\n");
-	printf("Biaya Listrik per Bulan           : %.2f\n", biaya_listrik_pln[1]);
-	printf("Biaya Listrik pada Akhir Simulasi : %.2f\n", biaya_listrik_pln[1]*jumlahBulan);
-	printf("Total KWH                         : %.2f\n", total_kwh_pln[1]*jumlahBulan);
-	printf("Emisi Karbon                      : %.2f\n", emisi_karbon[1]*jumlahBulan);
+
     return 0; //selesai
 }
-
-
-
