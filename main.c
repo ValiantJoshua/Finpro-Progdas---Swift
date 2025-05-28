@@ -25,7 +25,7 @@ void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untu
 	*/ 
 
 int main (){
-	int pilihan, n = 0; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
+	int pilihan, n = 0, i; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
 	float harga_kwh = 1444.7; 
 	float total_kwh_pln[2] = {0};
 	float biaya_listrik_pln[2] = {0};
@@ -67,9 +67,11 @@ do{
 				n++;
 			} while (pilihan == 1);
 
-			for (int i = 0; i < n; i++) {
-				perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
-				total_kwh_pln[0] += perangkat[i].kwh_perangkat;
+
+		for (i = 0; i < n; i++) {
+			perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
+			total_kwh_pln[0] += perangkat[i].kwh_perangkat;
+
 			}
 			break;
 		} else if (pilihan == 2) {
@@ -78,12 +80,16 @@ do{
 			break;
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
+
 		}
 	}while(pilihan !=1 || pilihan != 2);
 
 
 	biaya_listrik_pln[0] = total_kwh_pln[0] * harga_kwh;
 	emisi_karbon[0] = total_kwh_pln[0] * 0.85;
+	
+	//Set Total kwh pln agar benar 
+	total_kwh_pln[1] = total_kwh_pln[0];
 
 	//output total biaya listrik biasa dan kwh per perangkat
 
@@ -261,26 +267,35 @@ do{
 		}
 	}
 	
-	for (int i = 0; i < 6; i++) {
+	int jumlahBulan;
+	printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
+	scanf("%d", &jumlahBulan);
+	
+	for (i = 0; i < 6; i++) {
 		total_kwh_pln[1] -= alat[i].kwh_alat * alat[i].jumlah_alat;
 	}
-
+	
+	//
 	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
 	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
 
 	printf("================== Output ==============\n");
-	if(perangkat = NULL){
-		printf("List Perangkat Elektronik di Rumah Anda:\n");
-		printf("%-15s | %-15s", "Nama Perangkat", "Kwh Perbulan");
-		for (int i=0; i<=n; i++){
-			printf("%-15s | %-15s\n", perangkat[i].nama, perangkat[i].kwh_perangkat);
-		}
-	} else if (pilihan==2){
-		printf("total kwh");
-	}
+	float persen_penghematan = ((total_kwh_pln[0]*jumlahBulan)-(total_kwh_pln[1]*jumlahBulan))/(total_kwh_pln[0]*jumlahBulan) *100;
+	float persen_pengurangan_emisi = ((emisi_karbon[0] - emisi_karbon[1]) / emisi_karbon[0]) * 100;
 
+	printf("Energi yang dihemat perbulan   : %.2f\n",total_kwh_pln[0]-total_kwh_pln[1] );
+	printf("Presentase pengehematan Energi : %.2f%%\n", persen_penghematan); 
+	printf("presentase berkurangnya Emisi  : %.2f%%\n", persen_pengurangan_emisi);
+	
+	printf("\n+==================================================================\n");
+	printf("| %-20s| %-20s| %-20s|\n", "PERBANDINGAN ENERGI", "Non-Renewable", "Renewable");
+	printf("+==================================================================\n");
+	printf("| %-20s| Rp %-17.2f| Rp %-17.2f|\n", "Biaya/Bulan", biaya_listrik_pln[0], biaya_listrik_pln[1]);
+	printf("| %-20s| Rp %-17.2f| Rp %-17.2f|\n", "Biaya Akhir Simulasi", biaya_listrik_pln[0]*jumlahBulan, biaya_listrik_pln[1]*jumlahBulan);
+	printf("| %-20s| %-16.2f Kwh| %-16.2f Kwh|\n", "Total KWH", total_kwh_pln[0]*jumlahBulan, total_kwh_pln[1]*jumlahBulan);
+	printf("| %-20s| %-20.2f| %-20.2f|\n", "Emisi Karbon", emisi_karbon[0]*jumlahBulan, emisi_karbon[1]*jumlahBulan);
+	printf("+==================================================================\n");
 
-	//kana
     printf("\n========== RUMAHMU ==========\n");
     printf("      ________________\n");
     printf("     /                 \\\n");
@@ -291,53 +306,50 @@ do{
     printf("     |        []       |\n");
     printf("     |________!!_______|\n");
     
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("#####################");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("         _________   ");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("        /========/   ");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("       /========/    ");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("      /________/     ");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("          | |        ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("             !       ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("             !       ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("         ====O====   ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("             |       ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("             |       ");
     }
     printf("\n");
 
     return 0; //selesai
 }
-
-
-
