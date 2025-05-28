@@ -14,6 +14,7 @@ typedef struct {
 	int jumlah_alat;
 } Alat;
 
+/*
 void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untuk mengecek saat ingin mengurang dari keranjang
 	if(temp >alat[index_alat].jumlah_alat){
 		printf("Input Invalid. Jumlah alat yang ingin dikurangkan lebih sedikit dari keranjang");
@@ -21,6 +22,7 @@ void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untu
 		alat[index_alat].jumlah_alat -= temp;
 	}
 }
+	*/ 
 
 int main (){
 	int pilihan, n = 0; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
@@ -29,6 +31,7 @@ int main (){
 	float biaya_listrik_pln[2] = {0};
 	float emisi_karbon[2] = {0};
 	int panelSurya = 0, turbinAngin = 0;
+	Perangkat *perangkat = NULL;
 
 	printf("=========================================\n");
 	printf("        Renewable Energy Simulator       \n");
@@ -42,7 +45,7 @@ do{
 		scanf("%d", &pilihan);
 
 			if (pilihan == 1) {
-		Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
+				Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
 			do {
 				printf("\nPerangkat Elektronik - %d\n", n + 1);
 				printf("Nama : ");
@@ -76,7 +79,7 @@ do{
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
 		}
-	}while(pilihan !=1 || pilihan!=2);
+	}while(pilihan !=1 || pilihan != 2);
 
 
 	biaya_listrik_pln[0] = total_kwh_pln[0] * harga_kwh;
@@ -265,8 +268,19 @@ do{
 	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
 	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
 
-	
+	printf("================== Output ==============\n");
+	if(perangkat = NULL){
+		printf("List Perangkat Elektronik di Rumah Anda:\n");
+		printf("%-15s | %-15s", "Nama Perangkat", "Kwh Perbulan");
+		for (int i=0; i<=n; i++){
+			printf("%-15s | %-15s\n", perangkat[i].nama, perangkat[i].kwh_perangkat);
+		}
+	} else if (pilihan==2){
+		printf("total kwh");
+	}
 
+
+	//kana
     printf("\n========== RUMAHMU ==========\n");
     printf("      ________________\n");
     printf("     /                 \\\n");
