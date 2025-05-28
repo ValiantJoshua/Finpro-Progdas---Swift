@@ -268,24 +268,31 @@ do{
 	}
 	
 	int jumlahBulan;
+	float modal;
+
 	printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
 	scanf("%d", &jumlahBulan);
 	
 	for (i = 0; i < 6; i++) {
 		total_kwh_pln[1] -= alat[i].kwh_alat * alat[i].jumlah_alat;
 	}
-	
-	//
+	for (int j=0; j<6; j++){ //menghitung total biaya yang dibutuhkan untuk membeli alat 
+		modal += alat[j].harga_alat * alat[j].jumlah_alat;
+	}
 	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
 	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
 
-	printf("================== Output ==============\n");
 	float persen_penghematan = ((total_kwh_pln[0]*jumlahBulan)-(total_kwh_pln[1]*jumlahBulan))/(total_kwh_pln[0]*jumlahBulan) *100;
 	float persen_pengurangan_emisi = ((emisi_karbon[0] - emisi_karbon[1]) / emisi_karbon[0]) * 100;
+	int waktu_balik_modal = modal/(biaya_listrik_pln[0]-biaya_listrik_pln[1]);
+	
 
-	printf("Energi yang dihemat perbulan   : %.2f\n",total_kwh_pln[0]-total_kwh_pln[1] );
-	printf("Presentase pengehematan Energi : %.2f%%\n", persen_penghematan); 
-	printf("presentase berkurangnya Emisi  : %.2f%%\n", persen_pengurangan_emisi);
+	printf("================== Output ==============\n");
+	printf("Energi yang dihemat perbulan             : %.2f\n",total_kwh_pln[0]-total_kwh_pln[1] );
+	printf("Presentase pengehematan Energi           : %.2f%%\n", persen_penghematan); 
+	printf("presentase berkurangnya Emisi            : %.2f%%\n", persen_pengurangan_emisi);
+	printf("Biaya yang dihemat perbulan              : Rp %.2f\n",biaya_listrik_pln[0]-biaya_listrik_pln[1]);
+	printf("Waktu yang dibutuhkan untuk uang kembali : %d bulan\n", waktu_balik_modal);
 	
 	printf("\n+==================================================================\n");
 	printf("| %-20s| %-20s| %-20s|\n", "PERBANDINGAN ENERGI", "Non-Renewable", "Renewable");
