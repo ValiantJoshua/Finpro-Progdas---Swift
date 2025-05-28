@@ -23,7 +23,7 @@ void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untu
 }
 
 int main (){
-	int pilihan, n = 0; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
+	int pilihan, n = 0, i; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
 	float harga_kwh = 1444.7; 
 	float total_kwh_pln[2] = {0};
 	float biaya_listrik_pln[2] = {0};
@@ -64,9 +64,11 @@ do{
 				n++;
 			} while (pilihan == 1);
 
-			for (int i = 0; i < n; i++) {
-				perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
-				total_kwh_pln[0] += perangkat[i].kwh_perangkat;
+
+		for (i = 0; i < n; i++) {
+			perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
+			total_kwh_pln[0] += perangkat[i].kwh_perangkat;
+
 			}
 			break;
 		} else if (pilihan == 2) {
@@ -75,12 +77,16 @@ do{
 			break;
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
+
 		}
 	}while(pilihan !=1 || pilihan!=2);
 
 
 	biaya_listrik_pln[0] = total_kwh_pln[0] * harga_kwh;
 	emisi_karbon[0] = total_kwh_pln[0] * 0.85;
+	
+	//Set Total kwh pln agar benar 
+	total_kwh_pln[1] = total_kwh_pln[0];
 
 	//output total biaya listrik biasa dan kwh per perangkat
 
@@ -253,10 +259,15 @@ do{
 		}
 	}
 	
-	for (int i = 0; i < 6; i++) {
+	int jumlahBulan;
+	printf("Tentukan Berapa lama simulasi berjalan (bulan): ");
+	scanf("%d", &jumlahBulan);
+	
+	for (i = 0; i < 6; i++) {
 		total_kwh_pln[1] -= alat[i].kwh_alat * alat[i].jumlah_alat;
 	}
-
+	
+	//
 	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
 	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
 
@@ -270,51 +281,62 @@ do{
     printf("     |        []       |\n");
     printf("     |________!!_______|\n");
     
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("#####################");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("         _________   ");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("        /========/   ");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("       /========/    ");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("      /________/     ");
     }
     printf("\n");
-    for(int i=0; i<panelSurya; i++){
+    for(i=0; i<panelSurya; i++){
         printf("          | |        ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("             !       ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("             !       ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("         ====O====   ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("             |       ");
     }
     printf("\n");
-    for(int i=0; i<turbinAngin; i++){
+    for(i=0; i<turbinAngin; i++){
         printf("             |       ");
     }
     printf("\n");
-
+    
+    //Tabel Perbandingan Energi Non-Renewable dan Renewable
+    printf("DATA ENERGI\nNon-Renewable\n");
+	printf("Biaya Listrik per Bulan           : %.2f\n", biaya_listrik_pln[0]);
+	printf("Biaya Listrik pada Akhir Simulasi : %.2f\n", biaya_listrik_pln[0]*jumlahBulan);
+	printf("Total KWH                         : %.2f\n", total_kwh_pln[0]*jumlahBulan);
+	printf("Emisi Karbon                      : %.2f\n", emisi_karbon[0]*jumlahBulan);
+	printf("Renewable\n");
+	printf("Biaya Listrik per Bulan           : %.2f\n", biaya_listrik_pln[1]);
+	printf("Biaya Listrik pada Akhir Simulasi : %.2f\n", biaya_listrik_pln[1]*jumlahBulan);
+	printf("Total KWH                         : %.2f\n", total_kwh_pln[1]*jumlahBulan);
+	printf("Emisi Karbon                      : %.2f\n", emisi_karbon[1]*jumlahBulan);
     return 0; //selesai
 }
 
