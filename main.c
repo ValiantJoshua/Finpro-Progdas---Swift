@@ -3,27 +3,23 @@
 
 typedef struct {
 	char nama[50];
-	float daya_perangkat;
-	float durasi_perangkat;
+	float daya_perangkat; // watt
+	float durasi_perangkat; // jam dalam sehari
+	float kwh_perangkat; // per bulan
 } Perangkat;
 
 typedef struct {
 	int harga_alat;
-	int daya_alat;
-	int durasi_alat;
+	float kwh_alat; // per bulan
 	int jumlah_alat;
 } Alat;
 
-void install_alat (float harga_kwh, float biaya_listrik[], Alat alat) {
-	biaya_listrik[1] += alat.harga_alat * alat.jumlah_alat;
-	biaya_listrik[1] -= alat.daya_alat * alat.durasi_alat * harga_kwh * alat.jumlah_alat * 30 / 1000;
-}
-
 int main (){
 	int pilihan, n = 0; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
-	float harga_kwh = 1444.7;
-	float total_kwh[2] = {0};
-	float biaya_listrik[2] = {0};
+	float harga_kwh = 1444.7; 
+	float total_kwh_pln[2] = {0};
+	float biaya_listrik_pln[2] = {0};
+	float emisi_karbon[2] = {0};
 
 	printf("=========================================\n");
 	printf("        Renewable Energy Simulator       \n");
@@ -40,7 +36,6 @@ int main (){
 		do {
 			printf("\nPerangkat Elektronik - %d\n", n + 1);
 			printf("Nama : ");
-			getchar();
 			scanf(" %[^\n]", perangkat[n].nama);
 
 			printf("Daya (Watt): ");
@@ -59,40 +54,45 @@ int main (){
 			n++;
 		} while (pilihan == 1);
 
-		for (int i = 0; i < n + 1; i++) {
-			total_kwh[0] += perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
-		} // menghitung kWh per bulan
+		for (int i = 0; i < n; i++) {
+			perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
+			total_kwh_pln[0] += perangkat[i].kwh_perangkat;
+		}
 
 	} else if (pilihan == 2) {
 		printf("Daya total yang digunakan per bulan (kWh) : ");
-		scanf("%f", &total_kwh[0]);
+		scanf("%f", &total_kwh_pln[0]);
 
 	} else {
 		printf("Input tidak sesuai\n");
 		return 1;
 	}
 
-	biaya_listrik[0] += total_kwh[0] * harga_kwh;
-	total_kwh[1] = total_kwh[0];
-	biaya_listrik[1] = biaya_listrik[0];
+	biaya_listrik_pln[0] = total_kwh_pln[0] * harga_kwh;
+	emisi_karbon[0] = total_kwh_pln[0] * 0.85;
+
+	//output total biaya listrik biasa dan kwh per perangkat
 
 	Alat alat[6] = {
-        {.harga_alat = 600000,   .daya_alat = 100,  .durasi_alat = 5, .jumlah_alat = 0}, // panel_surya1
-        {.harga_alat = 1800000,  .daya_alat = 300,  .durasi_alat = 5, .jumlah_alat = 0}, // panel_surya2
-        {.harga_alat = 2600000,  .daya_alat = 550,  .durasi_alat = 5, .jumlah_alat = 0}, // panel_surya3
-        {.harga_alat = 4000000,  .daya_alat = 300,  .durasi_alat = 8, .jumlah_alat = 0}, // turbin_angin1
-        {.harga_alat = 8000000,  .daya_alat = 800,  .durasi_alat = 8, .jumlah_alat = 0}, // turbin_angin2
-        {.harga_alat = 10000000, .daya_alat = 1000, .durasi_alat = 8, .jumlah_alat = 0}  // turbin_angin3
+        {.harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
+        {.harga_alat = 1800000,  .kwh_alat = 45,   .jumlah_alat = 0}, // panel_surya2
+        {.harga_alat = 2600000,  .kwh_alat = 82.5, .jumlah_alat = 0}, // panel_surya3
+        {.harga_alat = 4000000,  .kwh_alat = 72,   .jumlah_alat = 0}, // turbin_angin1
+        {.harga_alat = 8000000,  .kwh_alat = 192,  .jumlah_alat = 0}, // turbin_angin2
+        {.harga_alat = 10000000, .kwh_alat = 240,  .jumlah_alat = 0}  // turbin_angin3
     };
 
-	printf("\nAlat Renewable Energy\n");
+	int temp;
+
+	printf("\nToko Alat Renewable Energy\n");
 	while (pilihan != 8) {
-		printf("1. Panel Surya 100 W   (+-15 kWh/bulan)   (Rp600.000)\n");
-		printf("2. Panel Surya 300 W   (+-45 kWh/bulan)   (Rp1.800.000)\n");
-		printf("3. Panel Surya 550 W   (+-82,5 kWh/bulan) (Rp2.600.000)\n");
-		printf("4. Turbin Angin 300 W  (+-72 kWh/bulan)   (Rp4.000.000)\n");
-		printf("5. Turbin Angin 800 W  (+-192 kWh/bulan)  (Rp8.000.000)\n");
-		printf("6. Turbin Angin 1000 W (+-240 kWh/bulan)  (Rp10.000.000)\n");
+		printf("Pilih alat yang ingin dibeli\n");
+		printf("1. Panel Surya 100 W   | (+-15 kWh/bulan)   | (Rp600.000)\n");
+		printf("2. Panel Surya 300 W   | (+-45 kWh/bulan)   | (Rp1.800.000)\n");
+		printf("3. Panel Surya 550 W   | (+-82,5 kWh/bulan) | (Rp2.600.000)\n");
+		printf("4. Turbin Angin 300 W  | (+-72 kWh/bulan)   | (Rp4.000.000)\n");
+		printf("5. Turbin Angin 800 W  | (+-192 kWh/bulan)  | (Rp8.000.000)\n");
+		printf("6. Turbin Angin 1000 W | (+-240 kWh/bulan)  | (Rp10.000.000)\n");
 		printf("7. Lihat isi keranjang\n");
 		printf("8. Selesai\n");
 		printf("Pilihan : ");
@@ -100,24 +100,108 @@ int main (){
 
 		switch (pilihan) {
 			case 1:
-
+				printf("Jumlah: ");
+				scanf("%d", &temp);
+				alat[0].jumlah_alat += temp;
+				break;
 			case 2:
-
+				printf("Jumlah: ");
+				scanf("%d", &temp);
+				alat[1].jumlah_alat += temp;
+				break;
 			case 3:
-
+				printf("Jumlah: ");
+				scanf("%d", &temp);
+				alat[2].jumlah_alat += temp;
+				break;
 			case 4:
-
+				printf("Jumlah: ");
+				scanf("%d", &temp);
+				alat[3].jumlah_alat += temp;
+				break;
 			case 5:
-
+				printf("Jumlah: ");
+				scanf("%d", &temp);
+				alat[4].jumlah_alat += temp;
+				break;
 			case 6:
-
+				printf("Jumlah: ");
+				scanf("%d", &temp);
+				alat[5].jumlah_alat += temp;
+				break;
 			case 7:
-				
+				do {
+					printf("Isi Keranjang:\n");
+					printf("1. Panel Surya 100 W   | Jumlah : %d\n", alat[0].jumlah_alat);
+					printf("2. Panel Surya 300 W   | Jumlah : %d\n", alat[1].jumlah_alat);
+					printf("3. Panel Surya 550 W   | Jumlah : %d\n", alat[2].jumlah_alat);
+					printf("4. Turbin Angin 300 W  | Jumlah : %d\n", alat[3].jumlah_alat);
+					printf("5. Turbin Angin 800 W  | Jumlah : %d\n", alat[4].jumlah_alat);
+					printf("6. Turbin Angin 1000 W | Jumlah : %d\n", alat[5].jumlah_alat);
+					printf("7. Kembali ke toko\n");
+					printf("Pilih alat yang ingin dikurangi (jika tidak pilih 7 untuk kembali)\n");
+					printf("Pilihan : ");
+					scanf("%d", &pilihan);
+
+					switch (pilihan) {
+						case 1:
+							printf("Jumlah : %d\n", alat[0].jumlah_alat);
+							printf("Jumlah yang ingin dikurangi : ");
+							scanf("%d", &temp);
+							alat[0].jumlah_alat -= temp;
+							break;
+						case 2:
+							printf("Jumlah : %d\n", alat[1].jumlah_alat);
+							printf("Jumlah yang ingin dikurangi : ");
+							scanf("%d", &temp);
+							alat[1].jumlah_alat -= temp;
+							break;
+						case 3:
+							printf("Jumlah : %d\n", alat[2].jumlah_alat);
+							printf("Jumlah yang ingin dikurangi : ");
+							scanf("%d", &temp);
+							alat[2].jumlah_alat -= temp;
+							break;
+						case 4:
+							printf("Jumlah : %d\n", alat[3].jumlah_alat);
+							printf("Jumlah yang ingin dikurangi : ");
+							scanf("%d", &temp);
+							alat[3].jumlah_alat -= temp;
+							break;
+						case 5:
+							printf("Jumlah : %d\n", alat[4].jumlah_alat);
+							printf("Jumlah yang ingin dikurangi : ");
+							scanf("%d", &temp);
+							alat[4].jumlah_alat -= temp;
+							break;
+						case 6:
+							printf("Jumlah : %d\n", alat[5].jumlah_alat);
+							printf("Jumlah yang ingin dikurangi : ");
+							scanf("%d", &temp);
+							alat[5].jumlah_alat -= temp;
+							break;
+						case 7:
+							break;
+					}
+				} while (pilihan != 7);
+				break;
 			case 8:
+				break;
+			default:
+				printf("Pilihan tidak sesuai\n");
+				break;
 		}
-		
 	}
 	
+	for (int i = 0; i < 6; i++) {
+		total_kwh_pln[1] -= alat[i].kwh_alat * alat[i].jumlah_alat;
+	}
+
+	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
+	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
+
+	
+
     return 0; //selesai
 }
 
