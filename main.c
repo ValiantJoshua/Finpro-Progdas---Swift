@@ -23,6 +23,30 @@ void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untu
 	}
 }
 	*/ 
+	
+//void houseAppl (Perangkat *perangkat[], int size){
+//	int i;
+//	for (i=0; i<size; i++){
+//		printf("Mesin ke-%d\n", i+1);
+//		printf("Nama : %s\n", perangkat[i].nama);
+//	}
+//}
+//	
+int inputWErrorHandlingForInt (int max, int min){
+	int input;
+	if (max == -1){
+		do{
+			scanf("%d", &input);
+			if (input <= min)puts("Input Invalid, silahkan coba lagi.");
+		} while (input <= min);
+		return input;
+	}
+	do{
+		scanf("%d", &input);
+		if (input > max || input <= min)puts("Input Invalid, silahkan coba lagi.");
+	} while (input > max || input <= min);
+	return input;
+}
 
 int main (){
 	int pilihan, n = 0, i, j; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
@@ -120,37 +144,37 @@ do{
 		switch (pilihan) {
 			case 1:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[0].jumlah_alat += temp;
 				panelSurya += temp;
 				break;
 			case 2:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[1].jumlah_alat += temp;
 				panelSurya += temp;
 				break;
 			case 3:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[2].jumlah_alat += temp;
 				panelSurya += temp;
 				break;
 			case 4:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[3].jumlah_alat += temp;
 				turbinAngin += temp;
 				break;
 			case 5:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[4].jumlah_alat += temp;
 				turbinAngin += temp;
 				break;
 			case 6:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[5].jumlah_alat += temp;
 				turbinAngin += temp;
 				break;
@@ -171,88 +195,46 @@ do{
 					// Memastikan input tidak bisa bernilai negatif atau lebih dari jumlah sekarang
 					switch (pilihan) {
 						case 1:
-						do {
 							printf("Jumlah : %d\n", alat[0].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[0].jumlah_alat && temp > 0){
-								alat[0].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[0].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[0].jumlah_alat, 0);
+							alat[0].jumlah_alat -= temp;
+							break;
 
 						case 2:
-							do {
 							printf("Jumlah : %d\n", alat[1].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[1].jumlah_alat && temp > 0){
-								alat[1].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[1].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, 0);
+							alat[1].jumlah_alat -= temp;
+							break;
 
 						case 3:
-							do {
 							printf("Jumlah : %d\n", alat[2].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[2].jumlah_alat && temp > 0){
-								alat[2].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[2].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[2].jumlah_alat, 0);
+							alat[2].jumlah_alat -= temp;
+							break;
 
 						case 4:
-							do {
 							printf("Jumlah : %d\n", alat[3].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[3].jumlah_alat && temp > 0){
-								alat[3].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[3].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[3].jumlah_alat, 0);
+							alat[3].jumlah_alat -= temp;
+							break;
 
 						case 5:
-							do {
 							printf("Jumlah : %d\n", alat[4].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[4].jumlah_alat && temp > 0){
-								alat[4].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[4].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[4].jumlah_alat, 0);
+							alat[4].jumlah_alat -= temp;
+							break;
 
 						case 6:
-							do {
 							printf("Jumlah : %d\n", alat[5].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[5].jumlah_alat && temp > 0){
-								alat[5].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[5].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, 0);
+							alat[1].jumlah_alat -= temp;
+							break;
 
 						case 7:
 							break;
@@ -354,8 +336,8 @@ do{
     printf("Biaya yang dihemat perbulan              : Rp %.2f\n",biaya_listrik_pln[0]-biaya_listrik_pln[1]);
     printf("Waktu yang dibutuhkan untuk uang kembali : %d bulan\n", waktu_balik_modal);
 	printf("Energi yang dihemat perbulan             : %.2f kWh\n",total_kwh_pln[0]-total_kwh_pln[1] );
-	printf("Presentase pengehematan Energi           : %.2f%%\n", persen_penghematan); 
-	printf("presentase berkurangnya Emisi            : %.2f%%\n", persen_pengurangan_emisi);
+	printf("Persentase pengehematan Energi           : %.2f%%\n", persen_penghematan); 
+	printf("Persentase berkurangnya Emisi            : %.2f%%\n", persen_pengurangan_emisi);
 	
 	printf("\n+==================================================================\n");
 	printf("| %-20s| %-20s| %-20s|\n", "PERBANDINGAN ENERGI", "Non-Renewable", "Renewable");
