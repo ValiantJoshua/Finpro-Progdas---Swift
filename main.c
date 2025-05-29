@@ -67,7 +67,6 @@ do{
 				n++;
 			} while (pilihan == 1);
 
-
 		for (i = 0; i < n; i++) {
 			perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
 			total_kwh_pln[0] += perangkat[i].kwh_perangkat;
@@ -348,6 +347,7 @@ do{
         }
         printf("\n");
     }
+
 
     printf("\n================= Output =================\n");
     printf("Modal yang dikeluarkan untuk alat        : Rp %.2f \n", modal);
