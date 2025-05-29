@@ -15,6 +15,70 @@ typedef struct {
 	int jumlah_alat;
 } Alat;
 
+int displayHouse (int panelSurya, int turbinAngin){
+    int i;
+    printf("\n========== RUMAHMU ==========\n");
+    printf("      ________________\n");
+    printf("     /                 \\\n");
+    printf("    /___________________\\\n");
+    printf("     |                 |\n");
+    printf("     |   []       []   |\n");
+    printf("     |                 |\n");
+    printf("     |        []       |\n");
+    printf("     |________!!_______|\n");
+    
+    for(i=0; i<panelSurya || i<turbinAngin; i++){
+            printf("#############");
+        }
+        printf("\n");
+        
+    if(panelSurya >0){
+        for(i=0; i<panelSurya; i++){
+            printf("   _________ ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("  /========/ ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf(" /========/  ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("/________/   ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("    | |      ");
+        }
+        printf("\n");
+    }
+    printf("\n");
+    if(turbinAngin > 0){
+        for(i=0; i<turbinAngin; i++){
+            printf("     [       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("     [       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("  ===O===    ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("     |       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("     |       ");
+        }
+        printf("\n");
+    }
+}
+
 int inputWErrorHandlingForInt (int max, int min){
 	int input;
 	if (max == -1){
@@ -239,6 +303,7 @@ int main (){
 		}
 	}
 
+
 	if (panelSurya == 0 && turbinAngin == 0) {
 		return 0;
 	}
@@ -275,6 +340,8 @@ int main (){
 		scanf("%d", &jumlahBulan);
 		if (jumlahBulan <= 0)printf("Input Invalid. Silahkan Coba lagi");
 	} while (jumlahBulan <= 0);
+
+    displayHouse(panelSurya, turbinAngin);
 
 	printf("Simulasi %d Bulan\n", jumlahBulan);
 	printf("Non-Renewable | Renewable\n");
