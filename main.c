@@ -278,7 +278,8 @@ do{
 	
 	for (i = 0; i < 6; i++) {
 		total_kwh_pln[1] -= alat[i].kwh_alat * alat[i].jumlah_alat;
-	}
+	} 
+
 	for (j=0; j<6; j++){ //menghitung total biaya yang dibutuhkan untuk membeli alat 
 		modal += alat[j].harga_alat * alat[j].jumlah_alat;
 	}
