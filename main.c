@@ -49,13 +49,13 @@ int inputWErrorHandlingForInt (int max, int min){
 }
 
 int main (){
-	int pilihan, n = 0, i, j; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
+	int pilihan, mode, n = 0, i, j; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
 	float harga_kwh = 1444.7; 
 	float total_kwh_pln[2] = {0};
 	float biaya_listrik_pln[2] = {0};
 	float emisi_karbon[2] = {0};
 	int panelSurya = 0, turbinAngin = 0;
-	Perangkat *perangkat = NULL;
+	Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
 
 	printf("=========================================\n");
 	printf("        Renewable Energy Simulator       \n");
@@ -66,10 +66,9 @@ int main (){
 		printf("1. Input daya per perangkat (jika tidak mengetahui listrik yang digunakan rumah per bulan)\n");
 		printf("2. Input daya total per bulan\n");
 		printf("Pilihan (1 atau 2) : ");
-		scanf("%d", &pilihan);
+		scanf("%d", &mode);
 
-		if (pilihan == 1) {
-			Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
+		if (mode == 1) {
 			do {
 				printf("\nPerangkat Elektronik - %d\n", n + 1);
 				printf("Nama : ");
@@ -96,14 +95,14 @@ int main (){
 				total_kwh_pln[0] += perangkat[i].kwh_perangkat;
 			}
 			break;
-		} else if (pilihan == 2) {
+		} else if (mode == 2) {
 			printf("Daya total yang digunakan per bulan (kWh) : ");
 			scanf("%f", &total_kwh_pln[0]);
 			break;
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
 		}
-	} while (pilihan !=1 || pilihan!=2);
+	} while (mode != 1 || mode != 2);
 
 	biaya_listrik_pln[0] = total_kwh_pln[0] * harga_kwh;
 	emisi_karbon[0] = total_kwh_pln[0] * 0.85;
@@ -111,7 +110,18 @@ int main (){
 	//Set Total kwh pln agar benar 
 	total_kwh_pln[1] = total_kwh_pln[0];
 
-	//output total biaya listrik biasa dan kwh per perangkat
+	if (mode == 1) {
+		printf("Perangkat Rumah");
+		for (int i = 0; i < n; i++) {
+			printf("\nPerangkat-%d : %s\n", i + 1, perangkat[i].nama);
+			printf("Listrik per bulan : %.2f kWh\n", perangkat[i].kwh_perangkat);
+		}
+		printf("Total listrik per bulan : %.2f kWh\n", total_kwh_pln[0]);
+		printf("Total biaya listrik per bulan : Rp%f\n", biaya_listrik_pln[0]);
+	} else if (mode == 2) {
+		printf("Total listrik per bulan : %.2f kWh\n", total_kwh_pln[0]);
+		printf("Total biaya listrik per bulan : Rp%.2f\n", biaya_listrik_pln[0]);
+	}
 
 	Alat alat[6] = {
         {.harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
