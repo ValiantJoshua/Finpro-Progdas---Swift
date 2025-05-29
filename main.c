@@ -113,7 +113,7 @@ int main (){
 		printf("1. Input daya per perangkat (jika tidak mengetahui listrik yang digunakan rumah per bulan)\n");
 		printf("2. Input daya total per bulan\n");
 		printf("Pilihan (1 atau 2) : ");
-		scanf("%d", &mode);
+		mode = inputWErrorHandlingForInt(2, 0);
 
 		if (mode == 1) {
 			do {
@@ -144,7 +144,7 @@ int main (){
 			break;
 		} else if (mode == 2) {
 			printf("Daya total yang digunakan per bulan (kWh) : ");
-			scanf("%f", &total_kwh_pln[0]);
+			total_kwh_pln[0] = inputWErrorHandlingForInt(-1,0);
 			break;
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
@@ -335,11 +335,8 @@ int main (){
 	int jumlahBulan;
 	int waktu_balik_modal = biaya_alat / (biaya_listrik_pln[0] - biaya_listrik_pln[1]);
 
-	do {
-		printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
-		scanf("%d", &jumlahBulan);
-		if (jumlahBulan <= 0)printf("Input Invalid. Silahkan Coba lagi");
-	} while (jumlahBulan <= 0);
+	printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
+	jumlahBulan = inputWErrorHandlingForInt(-1,0);
 
     displayHouse(panelSurya, turbinAngin);
 
