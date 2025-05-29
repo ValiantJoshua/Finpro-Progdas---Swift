@@ -67,10 +67,9 @@ int main (){
 				n++;
 			} while (pilihan == 1);
 
-		for (i = 0; i < n; i++) {
-			perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
-			total_kwh_pln[0] += perangkat[i].kwh_perangkat;
-
+			for (i = 0; i < n; i++) {
+				perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
+				total_kwh_pln[0] += perangkat[i].kwh_perangkat;
 			}
 			break;
 		} else if (pilihan == 2) {
@@ -79,7 +78,6 @@ int main (){
 			break;
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
-
 		}
 	} while (pilihan !=1 || pilihan!=2);
 
@@ -251,9 +249,11 @@ int main (){
 								printf("Input Invalid. Silahkan coba lagi\n");
 							}
 						} while(temp>alat[5].jumlah_alat && temp <= 0);
-						break;
-
+							break;
 						case 7:
+							break;
+						default:
+							printf("Pilihan tidak sesuai\n");
 							break;
 					}
 				} while (pilihan != 7);
