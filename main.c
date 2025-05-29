@@ -67,7 +67,6 @@ do{
 				n++;
 			} while (pilihan == 1);
 
-
 		for (i = 0; i < n; i++) {
 			perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
 			total_kwh_pln[0] += perangkat[i].kwh_perangkat;
@@ -289,23 +288,6 @@ do{
 	float persen_penghematan = ((total_kwh_pln[0]*jumlahBulan)-(total_kwh_pln[1]*jumlahBulan))/(total_kwh_pln[0]*jumlahBulan) *100;
 	float persen_pengurangan_emisi = ((emisi_karbon[0] - emisi_karbon[1]) / emisi_karbon[0]) * 100;
 	int waktu_balik_modal = modal/(biaya_listrik_pln[0]-biaya_listrik_pln[1]);
-	
-
-	printf("================== Output ==============\n");
-	printf("Energi yang dihemat perbulan             : %.2f\n",total_kwh_pln[0]-total_kwh_pln[1] );
-	printf("Presentase pengehematan Energi           : %.2f%%\n", persen_penghematan); 
-	printf("presentase berkurangnya Emisi            : %.2f%%\n", persen_pengurangan_emisi);
-	printf("Biaya yang dihemat perbulan              : Rp %.2f\n",biaya_listrik_pln[0]-biaya_listrik_pln[1]);
-	printf("Waktu yang dibutuhkan untuk uang kembali : %d bulan\n", waktu_balik_modal);
-	
-	printf("\n+==================================================================\n");
-	printf("| %-20s| %-20s| %-20s|\n", "PERBANDINGAN ENERGI", "Non-Renewable", "Renewable");
-	printf("+==================================================================\n");
-	printf("| %-20s| Rp %-17.2f| Rp %-17.2f|\n", "Biaya/Bulan", biaya_listrik_pln[0], biaya_listrik_pln[1]);
-	printf("| %-20s| Rp %-17.2f| Rp %-17.2f|\n", "Biaya Akhir Simulasi", biaya_listrik_pln[0]*jumlahBulan, biaya_listrik_pln[1]*jumlahBulan);
-	printf("| %-20s| %-16.2f Kwh| %-16.2f Kwh|\n", "Total KWH", total_kwh_pln[0]*jumlahBulan, total_kwh_pln[1]*jumlahBulan);
-	printf("| %-20s| %-20.2f| %-20.2f|\n", "Emisi Karbon", emisi_karbon[0]*jumlahBulan, emisi_karbon[1]*jumlahBulan);
-	printf("+==================================================================\n");
 
     printf("\n========== RUMAHMU ==========\n");
     printf("      ________________\n");
@@ -317,50 +299,72 @@ do{
     printf("     |        []       |\n");
     printf("     |________!!_______|\n");
     
-    for(i=0; i<panelSurya; i++){
-        printf("#####################");
+    if(panelSurya >0){
+        for(i=0; i<panelSurya; i++){
+            printf("#####################");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("         _________   ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("        /========/   ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("       /========/    ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("      /________/     ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("          | |        ");
+        }
+        printf("\n");
     }
-    printf("\n");
-    for(i=0; i<panelSurya; i++){
-        printf("         _________   ");
+    if(turbinAngin > 0){
+        for(i=0; i<turbinAngin; i++){
+            printf("             !       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("             !       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("         ====O====   ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("             |       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("             |       ");
+        }
+        printf("\n");
     }
-    printf("\n");
-    for(i=0; i<panelSurya; i++){
-        printf("        /========/   ");
-    }
-    printf("\n");
-    for(i=0; i<panelSurya; i++){
-        printf("       /========/    ");
-    }
-    printf("\n");
-    for(i=0; i<panelSurya; i++){
-        printf("      /________/     ");
-    }
-    printf("\n");
-    for(i=0; i<panelSurya; i++){
-        printf("          | |        ");
-    }
-    printf("\n");
-    for(i=0; i<turbinAngin; i++){
-        printf("             !       ");
-    }
-    printf("\n");
-    for(i=0; i<turbinAngin; i++){
-        printf("             !       ");
-    }
-    printf("\n");
-    for(i=0; i<turbinAngin; i++){
-        printf("         ====O====   ");
-    }
-    printf("\n");
-    for(i=0; i<turbinAngin; i++){
-        printf("             |       ");
-    }
-    printf("\n");
-    for(i=0; i<turbinAngin; i++){
-        printf("             |       ");
-    }
-    printf("\n");
 
-    return 0; //selesai
+
+    printf("\n================= Output =================\n");
+    printf("Modal yang dikeluarkan untuk alat        : Rp %.2f \n", modal);
+    printf("Biaya yang dihemat perbulan              : Rp %.2f\n",biaya_listrik_pln[0]-biaya_listrik_pln[1]);
+    printf("Waktu yang dibutuhkan untuk uang kembali : %d bulan\n", waktu_balik_modal);
+	printf("Energi yang dihemat perbulan             : %.2f kWh\n",total_kwh_pln[0]-total_kwh_pln[1] );
+	printf("Presentase pengehematan Energi           : %.2f%%\n", persen_penghematan); 
+	printf("presentase berkurangnya Emisi            : %.2f%%\n", persen_pengurangan_emisi);
+	
+	printf("\n+==================================================================\n");
+	printf("| %-20s| %-20s| %-20s|\n", "PERBANDINGAN ENERGI", "Non-Renewable", "Renewable");
+	printf("+==================================================================\n");
+	printf("| %-20s| Rp %-17.2f| Rp %-17.2f|\n", "Biaya/Bulan", biaya_listrik_pln[0], biaya_listrik_pln[1]);
+	printf("| %-20s| Rp %-17.2f| Rp %-17.2f|\n", "Biaya Akhir Simulasi", biaya_listrik_pln[0]*jumlahBulan, biaya_listrik_pln[1]*jumlahBulan);
+	printf("| %-20s| %-16.2f Kwh| %-16.2f Kwh|\n", "Total KWH", total_kwh_pln[0]*jumlahBulan, total_kwh_pln[1]*jumlahBulan);
+	printf("| %-20s| %-20.2f| %-20.2f|\n", "Emisi Karbon", emisi_karbon[0]*jumlahBulan, emisi_karbon[1]*jumlahBulan);
+	printf("+==================================================================\n");
+	
+	return 0; //selesai
 }
