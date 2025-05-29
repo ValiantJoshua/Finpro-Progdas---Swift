@@ -10,10 +10,75 @@ typedef struct {
 
 typedef struct {
 	char nama_alat[20];
+	char nama_alat[20];
 	int harga_alat;
 	float kwh_alat; // per bulan
 	int jumlah_alat;
 } Alat;
+
+int displayHouse (int panelSurya, int turbinAngin){
+    int i;
+    printf("\n========== RUMAHMU ==========\n");
+    printf("      ________________\n");
+    printf("     /                 \\\n");
+    printf("    /___________________\\\n");
+    printf("     |                 |\n");
+    printf("     |   []       []   |\n");
+    printf("     |                 |\n");
+    printf("     |        []       |\n");
+    printf("     |________!!_______|\n");
+    
+    for(i=0; i<panelSurya || i<turbinAngin; i++){
+            printf("#############");
+        }
+        printf("\n");
+        
+    if(panelSurya >0){
+        for(i=0; i<panelSurya; i++){
+            printf("   _________ ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("  /========/ ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf(" /========/  ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("/________/   ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("    | |      ");
+        }
+        printf("\n");
+    }
+    printf("\n");
+    if(turbinAngin > 0){
+        for(i=0; i<turbinAngin; i++){
+            printf("     [       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("     [       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("  ===O===    ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("     |       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("     |       ");
+        }
+        printf("\n");
+    }
+}
 
 int inputWErrorHandlingForInt (int max, int min){
 	int input;
@@ -92,7 +157,7 @@ int main (){
 
 	if (mode == 1) {
 		printf("Perangkat Rumah");
-		for (int i = 0; i <= n; i++) {
+		for (i = 0; i <= n; i++) {
 			printf("\nPerangkat-%d : %s\n", i + 1, perangkat[i].nama);
 			printf("Listrik per bulan : %.2f kWh\n", perangkat[i].kwh_perangkat);
 		}
@@ -104,6 +169,12 @@ int main (){
 	}
 
 	Alat alat[6] = {
+        {.nama_alat = "Panel Surya 100 W",   .harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
+        {.nama_alat = "Panel Surya 300 W",   .harga_alat = 1800000,  .kwh_alat = 45,   .jumlah_alat = 0}, // panel_surya2
+        {.nama_alat = "Panel Surya 550 W",   .harga_alat = 2600000,  .kwh_alat = 82.5, .jumlah_alat = 0}, // panel_surya3
+        {.nama_alat = "Turbin Angin 300 W",  .harga_alat = 4000000,  .kwh_alat = 72,   .jumlah_alat = 0}, // turbin_angin1
+        {.nama_alat = "Turbin Angin 800 W",  .harga_alat = 8000000,  .kwh_alat = 192,  .jumlah_alat = 0}, // turbin_angin2
+        {.nama_alat = "Turbin Angin 1000 W", .harga_alat = 10000000, .kwh_alat = 240,  .jumlah_alat = 0}  // turbin_angin3
         {.nama_alat = "Panel Surya 100 W",   .harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
         {.nama_alat = "Panel Surya 300 W",   .harga_alat = 1800000,  .kwh_alat = 45,   .jumlah_alat = 0}, // panel_surya2
         {.nama_alat = "Panel Surya 550 W",   .harga_alat = 2600000,  .kwh_alat = 82.5, .jumlah_alat = 0}, // panel_surya3
@@ -221,6 +292,8 @@ int main (){
 							printf("Jumlah yang ingin dikurangi : ");
 							temp = inputWErrorHandlingForInt(alat[5].jumlah_alat, 0);
 							alat[5].jumlah_alat -= temp;
+							temp = inputWErrorHandlingForInt(alat[5].jumlah_alat, 0);
+							alat[5].jumlah_alat -= temp;
 							break;
 
 						case 7:
@@ -239,6 +312,7 @@ int main (){
 		}
 	}
 
+
 	if (panelSurya == 0 && turbinAngin == 0) {
 		return 0;
 	}
@@ -246,7 +320,7 @@ int main (){
 	float biaya_alat = 0;
 	// output alat apa aja yang dibeli
 	printf("Alat Renewable Energy yang digunakan\n");
-	for (int i = 0; i < 6; i++) {
+	for (i = 0; i < 6; i++) {
 		biaya_alat += alat[i].harga_alat * alat[i].jumlah_alat;
 		total_kwh_pln[1] += alat[i].kwh_alat * alat[i].jumlah_alat;
 		if (alat[i].jumlah_alat) {
@@ -275,6 +349,8 @@ int main (){
 		scanf("%d", &jumlahBulan);
 		if (jumlahBulan <= 0)printf("Input Invalid. Silahkan Coba lagi");
 	} while (jumlahBulan <= 0);
+
+    displayHouse(panelSurya, turbinAngin);
 
 	printf("Simulasi %d Bulan\n", jumlahBulan);
 	printf("Non-Renewable | Renewable\n");
