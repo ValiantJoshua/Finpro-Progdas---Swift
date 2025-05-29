@@ -23,29 +23,52 @@ void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untu
 	}
 }
 	*/ 
+	
+//void houseAppl (Perangkat *perangkat[], int size){
+//	int i;
+//	for (i=0; i<size; i++){
+//		printf("Mesin ke-%d\n", i+1);
+//		printf("Nama : %s\n", perangkat[i].nama);
+//	}
+//}
+//	
+int inputWErrorHandlingForInt (int max, int min){
+	int input;
+	if (max == -1){
+		do{
+			scanf("%d", &input);
+			if (input <= min)puts("Input Invalid, silahkan coba lagi.");
+		} while (input <= min);
+		return input;
+	}
+	do{
+		scanf("%d", &input);
+		if (input > max || input <= min)puts("Input Invalid, silahkan coba lagi.");
+	} while (input > max || input <= min);
+	return input;
+}
 
 int main (){
-	int pilihan, n = 0, i, j; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
+	int pilihan, mode, n = 0, i, j; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
 	float harga_kwh = 1444.7; 
 	float total_kwh_pln[2] = {0};
 	float biaya_listrik_pln[2] = {0};
 	float emisi_karbon[2] = {0};
 	int panelSurya = 0, turbinAngin = 0;
-	Perangkat *perangkat = NULL;
+	Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
 
 	printf("=========================================\n");
 	printf("        Renewable Energy Simulator       \n");
 	printf("=========================================\n");
 
-do{	
+	do{	
 		printf("\nPilih mode input simulator\n");
 		printf("1. Input daya per perangkat (jika tidak mengetahui listrik yang digunakan rumah per bulan)\n");
 		printf("2. Input daya total per bulan\n");
 		printf("Pilihan (1 atau 2) : ");
-		scanf("%d", &pilihan);
+		scanf("%d", &mode);
 
-			if (pilihan == 1) {
-				Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
+		if (mode == 1) {
 			do {
 				printf("\nPerangkat Elektronik - %d\n", n + 1);
 				printf("Nama : ");
@@ -67,22 +90,19 @@ do{
 				n++;
 			} while (pilihan == 1);
 
-		for (i = 0; i < n; i++) {
-			perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
-			total_kwh_pln[0] += perangkat[i].kwh_perangkat;
-
+			for (i = 0; i < n; i++) {
+				perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
+				total_kwh_pln[0] += perangkat[i].kwh_perangkat;
 			}
 			break;
-		} else if (pilihan == 2) {
+		} else if (mode == 2) {
 			printf("Daya total yang digunakan per bulan (kWh) : ");
 			scanf("%f", &total_kwh_pln[0]);
 			break;
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
-
 		}
-	}while(pilihan !=1 || pilihan != 2);
-
+	} while (mode != 1 || mode != 2);
 
 	biaya_listrik_pln[0] = total_kwh_pln[0] * harga_kwh;
 	emisi_karbon[0] = total_kwh_pln[0] * 0.85;
@@ -90,7 +110,18 @@ do{
 	//Set Total kwh pln agar benar 
 	total_kwh_pln[1] = total_kwh_pln[0];
 
-	//output total biaya listrik biasa dan kwh per perangkat
+	if (mode == 1) {
+		printf("Perangkat Rumah");
+		for (int i = 0; i < n; i++) {
+			printf("\nPerangkat-%d : %s\n", i + 1, perangkat[i].nama);
+			printf("Listrik per bulan : %.2f kWh\n", perangkat[i].kwh_perangkat);
+		}
+		printf("Total listrik per bulan : %.2f kWh\n", total_kwh_pln[0]);
+		printf("Total biaya listrik per bulan : Rp%f\n", biaya_listrik_pln[0]);
+	} else if (mode == 2) {
+		printf("Total listrik per bulan : %.2f kWh\n", total_kwh_pln[0]);
+		printf("Total biaya listrik per bulan : Rp%.2f\n", biaya_listrik_pln[0]);
+	}
 
 	Alat alat[6] = {
         {.harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
@@ -120,37 +151,37 @@ do{
 		switch (pilihan) {
 			case 1:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[0].jumlah_alat += temp;
 				panelSurya += temp;
 				break;
 			case 2:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[1].jumlah_alat += temp;
 				panelSurya += temp;
 				break;
 			case 3:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[2].jumlah_alat += temp;
 				panelSurya += temp;
 				break;
 			case 4:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[3].jumlah_alat += temp;
 				turbinAngin += temp;
 				break;
 			case 5:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[4].jumlah_alat += temp;
 				turbinAngin += temp;
 				break;
 			case 6:
 				printf("Jumlah: ");
-				scanf("%d", &temp);
+				temp = inputWErrorHandlingForInt(-1, 0);
 				alat[5].jumlah_alat += temp;
 				turbinAngin += temp;
 				break;
@@ -171,90 +202,51 @@ do{
 					// Memastikan input tidak bisa bernilai negatif atau lebih dari jumlah sekarang
 					switch (pilihan) {
 						case 1:
-						do {
 							printf("Jumlah : %d\n", alat[0].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[0].jumlah_alat && temp > 0){
-								alat[0].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[0].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[0].jumlah_alat, 0);
+							alat[0].jumlah_alat -= temp;
+							break;
 
 						case 2:
-							do {
 							printf("Jumlah : %d\n", alat[1].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[1].jumlah_alat && temp > 0){
-								alat[1].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[1].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, 0);
+							alat[1].jumlah_alat -= temp;
+							break;
 
 						case 3:
-							do {
 							printf("Jumlah : %d\n", alat[2].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[2].jumlah_alat && temp > 0){
-								alat[2].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[2].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[2].jumlah_alat, 0);
+							alat[2].jumlah_alat -= temp;
+							break;
 
 						case 4:
-							do {
 							printf("Jumlah : %d\n", alat[3].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[3].jumlah_alat && temp > 0){
-								alat[3].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[3].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[3].jumlah_alat, 0);
+							alat[3].jumlah_alat -= temp;
+							break;
 
 						case 5:
-							do {
 							printf("Jumlah : %d\n", alat[4].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[4].jumlah_alat && temp > 0){
-								alat[4].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[4].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[4].jumlah_alat, 0);
+							alat[4].jumlah_alat -= temp;
+							break;
 
 						case 6:
-							do {
 							printf("Jumlah : %d\n", alat[5].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							scanf("%d", &temp);
-							if (temp <= alat[5].jumlah_alat && temp > 0){
-								alat[5].jumlah_alat -= temp;
-								break;
-							} else{
-								printf("Input Invalid. Silahkan coba lagi\n");
-							}
-						} while(temp>alat[5].jumlah_alat && temp <= 0);
-						break;
+							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, 0);
+							alat[1].jumlah_alat -= temp;
+							break;
 
 						case 7:
+							break;
+						default:
+							printf("Pilihan tidak sesuai\n");
 							break;
 					}
 				} while (pilihan != 7);
@@ -292,12 +284,12 @@ do{
     printf("\n========== RUMAHMU ==========\n");
     printf("      ________________\n");
     printf("     /                 \\\n");
-    printf("    /___________________\\\n");
+    printf("    /_\\\n");
     printf("     |                 |\n");
     printf("     |   []       []   |\n");
     printf("     |                 |\n");
     printf("     |        []       |\n");
-    printf("     |________!!_______|\n");
+    printf("     |!!_|\n");
     
     if(panelSurya >0){
         for(i=0; i<panelSurya; i++){
@@ -317,7 +309,7 @@ do{
         }
         printf("\n");
         for(i=0; i<panelSurya; i++){
-            printf("      /________/     ");
+            printf("      //     ");
         }
         printf("\n");
         for(i=0; i<panelSurya; i++){
@@ -354,8 +346,8 @@ do{
     printf("Biaya yang dihemat perbulan              : Rp %.2f\n",biaya_listrik_pln[0]-biaya_listrik_pln[1]);
     printf("Waktu yang dibutuhkan untuk uang kembali : %d bulan\n", waktu_balik_modal);
 	printf("Energi yang dihemat perbulan             : %.2f kWh\n",total_kwh_pln[0]-total_kwh_pln[1] );
-	printf("Presentase pengehematan Energi           : %.2f%%\n", persen_penghematan); 
-	printf("presentase berkurangnya Emisi            : %.2f%%\n", persen_pengurangan_emisi);
+	printf("Persentase pengehematan Energi           : %.2f%%\n", persen_penghematan); 
+	printf("Persentase berkurangnya Emisi            : %.2f%%\n", persen_pengurangan_emisi);
 	
 	printf("\n+==================================================================\n");
 	printf("| %-20s| %-20s| %-20s|\n", "PERBANDINGAN ENERGI", "Non-Renewable", "Renewable");
@@ -366,5 +358,5 @@ do{
 	printf("| %-20s| %-20.2f| %-20.2f|\n", "Emisi Karbon", emisi_karbon[0]*jumlahBulan, emisi_karbon[1]*jumlahBulan);
 	printf("+==================================================================\n");
 	
-	return 0; //selesai
+	return 0; //selesai
 }
