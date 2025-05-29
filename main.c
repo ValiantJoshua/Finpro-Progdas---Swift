@@ -32,6 +32,71 @@ void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untu
 //	}
 //}
 //	
+
+int displayHouse (int panelSurya, int turbinAngin){
+    int i;
+    printf("\n========== RUMAHMU ==========\n");
+    printf("      ________________\n");
+    printf("     /                 \\\n");
+    printf("    /___________________\\\n");
+    printf("     |                 |\n");
+    printf("     |   []       []   |\n");
+    printf("     |                 |\n");
+    printf("     |        []       |\n");
+    printf("     |________!!_______|\n");
+    
+    for(i=0; i<panelSurya || i<turbinAngin; i++){
+            printf("#############");
+        }
+        printf("\n");
+        
+    if(panelSurya >0){
+        for(i=0; i<panelSurya; i++){
+            printf("   _________ ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("  /========/ ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf(" /========/  ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("/________/   ");
+        }
+        printf("\n");
+        for(i=0; i<panelSurya; i++){
+            printf("    | |      ");
+        }
+        printf("\n");
+    }
+    printf("\n");
+    if(turbinAngin > 0){
+        for(i=0; i<turbinAngin; i++){
+            printf("     [       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("     [       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("  ===O===    ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("     |       ");
+        }
+        printf("\n");
+        for(i=0; i<turbinAngin; i++){
+            printf("     |       ");
+        }
+        printf("\n");
+    }
+}
+
 int inputWErrorHandlingForInt (int max, int min){
 	int input;
 	if (max == -1){
@@ -281,65 +346,7 @@ int main (){
 	float persen_pengurangan_emisi = ((emisi_karbon[0] - emisi_karbon[1]) / emisi_karbon[0]) * 100;
 	int waktu_balik_modal = modal/(biaya_listrik_pln[0]-biaya_listrik_pln[1]);
 
-    printf("\n========== RUMAHMU ==========\n");
-    printf("      ________________\n");
-    printf("     /                 \\\n");
-    printf("    /_\\\n");
-    printf("     |                 |\n");
-    printf("     |   []       []   |\n");
-    printf("     |                 |\n");
-    printf("     |        []       |\n");
-    printf("     |!!_|\n");
-    
-    if(panelSurya >0){
-        for(i=0; i<panelSurya; i++){
-            printf("#####################");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("         _________   ");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("        /========/   ");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("       /========/    ");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("      //     ");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("          | |        ");
-        }
-        printf("\n");
-    }
-    if(turbinAngin > 0){
-        for(i=0; i<turbinAngin; i++){
-            printf("             !       ");
-        }
-        printf("\n");
-        for(i=0; i<turbinAngin; i++){
-            printf("             !       ");
-        }
-        printf("\n");
-        for(i=0; i<turbinAngin; i++){
-            printf("         ====O====   ");
-        }
-        printf("\n");
-        for(i=0; i<turbinAngin; i++){
-            printf("             |       ");
-        }
-        printf("\n");
-        for(i=0; i<turbinAngin; i++){
-            printf("             |       ");
-        }
-        printf("\n");
-    }
-
+    displayHouse(panelSurya, turbinAngin);
 
     printf("\n================= Output =================\n");
     printf("Modal yang dikeluarkan untuk alat        : Rp %.2f \n", modal);
@@ -358,5 +365,5 @@ int main (){
 	printf("| %-20s| %-20.2f| %-20.2f|\n", "Emisi Karbon", emisi_karbon[0]*jumlahBulan, emisi_karbon[1]*jumlahBulan);
 	printf("+==================================================================\n");
 	
-	return 0; //selesai
+	return 0; //selesai
 }
