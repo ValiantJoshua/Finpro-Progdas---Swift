@@ -34,15 +34,15 @@ int main (){
 	printf("        Renewable Energy Simulator       \n");
 	printf("=========================================\n");
 
-do{	
+	do{	
 		printf("\nPilih mode input simulator\n");
 		printf("1. Input daya per perangkat (jika tidak mengetahui listrik yang digunakan rumah per bulan)\n");
 		printf("2. Input daya total per bulan\n");
 		printf("Pilihan (1 atau 2) : ");
 		scanf("%d", &pilihan);
 
-			if (pilihan == 1) {
-		Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
+		if (pilihan == 1) {
+			Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
 			do {
 				printf("\nPerangkat Elektronik - %d\n", n + 1);
 				printf("Nama : ");
@@ -76,8 +76,7 @@ do{
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
 		}
-	}while(pilihan !=1 || pilihan!=2);
-
+	} while (pilihan !=1 || pilihan!=2);
 
 	biaya_listrik_pln[0] = total_kwh_pln[0] * harga_kwh;
 	emisi_karbon[0] = total_kwh_pln[0] * 0.85;
