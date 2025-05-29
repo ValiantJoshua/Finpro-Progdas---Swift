@@ -258,7 +258,8 @@ int main (){
 				break;
 		}
 	}
-	
+	//
+
 	int jumlahBulan;
 	float modal, keuntungan;
 
