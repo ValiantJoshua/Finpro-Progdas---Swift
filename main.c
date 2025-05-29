@@ -9,29 +9,12 @@ typedef struct {
 } Perangkat;
 
 typedef struct {
+	char nama_alat[20];
 	int harga_alat;
 	float kwh_alat; // per bulan
 	int jumlah_alat;
 } Alat;
 
-/*
-void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untuk mengecek saat ingin mengurang dari keranjang
-	if(temp >alat[index_alat].jumlah_alat){
-		printf("Input Invalid. Jumlah alat yang ingin dikurangkan lebih sedikit dari keranjang");
-	} else{
-		alat[index_alat].jumlah_alat -= temp;
-	}
-}
-	*/ 
-	
-//void houseAppl (Perangkat *perangkat[], int size){
-//	int i;
-//	for (i=0; i<size; i++){
-//		printf("Mesin ke-%d\n", i+1);
-//		printf("Nama : %s\n", perangkat[i].nama);
-//	}
-//}
-//	
 int inputWErrorHandlingForInt (int max, int min){
 	int input;
 	if (max == -1){
@@ -90,7 +73,7 @@ int main (){
 				n++;
 			} while (pilihan == 1);
 
-			for (i = 0; i < n; i++) {
+			for (i = 0; i <= n; i++) {
 				perangkat[i].kwh_perangkat = perangkat[i].daya_perangkat * perangkat[i].durasi_perangkat / 1000 * 30;
 				total_kwh_pln[0] += perangkat[i].kwh_perangkat;
 			}
@@ -106,13 +89,10 @@ int main (){
 
 	biaya_listrik_pln[0] = total_kwh_pln[0] * harga_kwh;
 	emisi_karbon[0] = total_kwh_pln[0] * 0.85;
-	
-	//Set Total kwh pln agar benar 
-	total_kwh_pln[1] = total_kwh_pln[0];
 
 	if (mode == 1) {
 		printf("Perangkat Rumah");
-		for (int i = 0; i < n; i++) {
+		for (i = 0; i <= n; i++) {
 			printf("\nPerangkat-%d : %s\n", i + 1, perangkat[i].nama);
 			printf("Listrik per bulan : %.2f kWh\n", perangkat[i].kwh_perangkat);
 		}
@@ -124,12 +104,12 @@ int main (){
 	}
 
 	Alat alat[6] = {
-        {.harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
-        {.harga_alat = 1800000,  .kwh_alat = 45,   .jumlah_alat = 0}, // panel_surya2
-        {.harga_alat = 2600000,  .kwh_alat = 82.5, .jumlah_alat = 0}, // panel_surya3
-        {.harga_alat = 4000000,  .kwh_alat = 72,   .jumlah_alat = 0}, // turbin_angin1
-        {.harga_alat = 8000000,  .kwh_alat = 192,  .jumlah_alat = 0}, // turbin_angin2
-        {.harga_alat = 10000000, .kwh_alat = 240,  .jumlah_alat = 0}  // turbin_angin3
+        {.nama_alat = "Panel Surya 100 W",   .harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
+        {.nama_alat = "Panel Surya 300 W",   .harga_alat = 1800000,  .kwh_alat = 45,   .jumlah_alat = 0}, // panel_surya2
+        {.nama_alat = "Panel Surya 550 W",   .harga_alat = 2600000,  .kwh_alat = 82.5, .jumlah_alat = 0}, // panel_surya3
+        {.nama_alat = "Turbin Angin 300 W",  .harga_alat = 4000000,  .kwh_alat = 72,   .jumlah_alat = 0}, // turbin_angin1
+        {.nama_alat = "Turbin Angin 800 W",  .harga_alat = 8000000,  .kwh_alat = 192,  .jumlah_alat = 0}, // turbin_angin2
+        {.nama_alat = "Turbin Angin 1000 W", .harga_alat = 10000000, .kwh_alat = 240,  .jumlah_alat = 0}  // turbin_angin3
 	};
 
 	int temp;
@@ -239,8 +219,8 @@ int main (){
 						case 6:
 							printf("Jumlah : %d\n", alat[5].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, 0);
-							alat[1].jumlah_alat -= temp;
+							temp = inputWErrorHandlingForInt(alat[5].jumlah_alat, 0);
+							alat[5].jumlah_alat -= temp;
 							break;
 
 						case 7:
@@ -258,116 +238,53 @@ int main (){
 				break;
 		}
 	}
-	
+
+	if (panelSurya == 0 && turbinAngin == 0) {
+		return 0;
+	}
+
+	float biaya_alat = 0;
+	// output alat apa aja yang dibeli
+	printf("Alat Renewable Energy yang digunakan\n");
+	for (i = 0; i < 6; i++) {
+		biaya_alat += alat[i].harga_alat * alat[i].jumlah_alat;
+		total_kwh_pln[1] += alat[i].kwh_alat * alat[i].jumlah_alat;
+		if (alat[i].jumlah_alat) {
+			printf("%s %dx\n", alat[i].nama_alat, alat[i].jumlah_alat);
+		}
+	}
+	printf("Total biaya alat : %.2f\n", biaya_alat);
+	printf("Total listrik yang dihemat per bulan : %.2f kWh\n", total_kwh_pln[1]);
+
+	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
+	printf("Total biaya listrik yang dihemat per bulan : Rp%.2f\n", biaya_listrik_pln[1]);
+
+	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
+	total_kwh_pln[1] = total_kwh_pln[0] - total_kwh_pln[1]; // Mengubah total_kwh_pln[1] dari yang listrik dihemat menjadi total listrik baru dengan renewable energy
+	biaya_listrik_pln[1] = biaya_listrik_pln[0] - biaya_listrik_pln[1]; // ini juga sama tapi untuk biaya
+
+	printf("Total emisi karbon yang dihemat : %.2fkg", emisi_karbon[1]);
+
+	emisi_karbon[1] = emisi_karbon[0] - emisi_karbon[1];
+
 	int jumlahBulan;
-	float modal, keuntungan;
+	int waktu_balik_modal = biaya_alat / (biaya_listrik_pln[0] - biaya_listrik_pln[1]);
 
-
-	do{
+	do {
 		printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
 		scanf("%d", &jumlahBulan);
 		if (jumlahBulan <= 0)printf("Input Invalid. Silahkan Coba lagi");
 	} while (jumlahBulan <= 0);
-	
-	for (i = 0; i < 6; i++) {
-		total_kwh_pln[1] -= alat[i].kwh_alat * alat[i].jumlah_alat;
-	}  if (total_kwh_pln[1]<0){ //total kwh jadi 0 jika kwh yang dihasilkan renewable energy melebihi
-		keuntungan= -(total_kwh_pln[1]);
-		total_kwh_pln[1]=0;
-	}
 
-	for (j=0; j<6; j++){ //menghitung total biaya yang dibutuhkan untuk membeli alat 
-		modal += alat[j].harga_alat * alat[j].jumlah_alat;
-	}
-	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh; //akan jadi 0 jika kwh melibihi 
-	emisi_karbon[1] = total_kwh_pln[1] * 0.85; 
+	printf("Simulasi %d Bulan\n", jumlahBulan);
+	printf("Non-Renewable | Renewable\n");
+	printf("Total listrik : %.2f kWh | %.2f kWh\n", total_kwh_pln[0] * jumlahBulan, total_kwh_pln[1] * jumlahBulan);
+	printf("Biaya listrik : Rp%.2f | Rp%.2f\n", biaya_listrik_pln[0] * jumlahBulan, biaya_listrik_pln[1] * jumlahBulan);
+	printf("Biaya alat : Rp0 | Rp%.2f\n", biaya_alat);
+	printf("Total biaya : Rp%.2f | Rp%.2f\n", biaya_listrik_pln[0] * jumlahBulan, biaya_listrik_pln[1] * jumlahBulan + biaya_alat);
+	printf("Total emisi karbon : %.2f kg | %.2f kg\n", emisi_karbon[0] * jumlahBulan, emisi_karbon[1] * jumlahBulan);
+	printf("Waktu untuk balik modal biaya alat : %d bulan", waktu_balik_modal);
 
-	float persen_penghematan = ((total_kwh_pln[0]*jumlahBulan)-(total_kwh_pln[1]*jumlahBulan))/(total_kwh_pln[0]*jumlahBulan) *100;
-	float persen_pengurangan_emisi = ((emisi_karbon[0] - emisi_karbon[1]) / emisi_karbon[0]) * 100;
-	int waktu_balik_modal = modal/(biaya_listrik_pln[0]-biaya_listrik_pln[1]);
-
-    printf("\n========== RUMAHMU ==========\n");
-    printf("      ________________\n");
-    printf("     /                 \\\n");
-    printf("    /_\\\n");
-    printf("     |                 |\n");
-    printf("     |   []       []   |\n");
-    printf("     |                 |\n");
-    printf("     |        []       |\n");
-    printf("     |!!_|\n");
-    
-    if(panelSurya >0){
-        for(i=0; i<panelSurya; i++){
-            printf("#####################");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("         _________   ");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("        /========/   ");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("       /========/    ");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("      //     ");
-        }
-        printf("\n");
-        for(i=0; i<panelSurya; i++){
-            printf("          | |        ");
-        }
-        printf("\n");
-    }
-    if(turbinAngin > 0){
-        for(i=0; i<turbinAngin; i++){
-            printf("             !       ");
-        }
-        printf("\n");
-        for(i=0; i<turbinAngin; i++){
-            printf("             !       ");
-        }
-        printf("\n");
-        for(i=0; i<turbinAngin; i++){
-            printf("         ====O====   ");
-        }
-        printf("\n");
-        for(i=0; i<turbinAngin; i++){
-            printf("             |       ");
-        }
-        printf("\n");
-        for(i=0; i<turbinAngin; i++){
-            printf("             |       ");
-        }
-        printf("\n");
-    }
-	
-
-    printf("\n================= Output =================\n");
-    printf("Modal yang dikeluarkan untuk alat        : Rp %.2f \n", modal);
-    printf("Biaya yang dihemat perbulan              : Rp %.2f\n",biaya_listrik_pln[0]-biaya_listrik_pln[1]);
-    printf("Waktu yang dibutuhkan untuk uang kembali : %d bulan\n", waktu_balik_modal);
-	printf("Energi yang dihemat perbulan             : %.2f kWh\n",total_kwh_pln[0]-total_kwh_pln[1] );
-	printf("Persentase pengehematan Energi           : %.2f%%\n", persen_penghematan); 
-	printf("Persentase berkurangnya Emisi            : %.2f%%\n", persen_pengurangan_emisi);
-	
-	printf("\n+==================================================================+\n");
-	printf("| %-20s| %-20s| %-20s|\n", "PERBANDINGAN ENERGI", "Non-Renewable", "Renewable");
-	printf("+==================================================================+\n");
-	printf("| %-20s| Rp%-18.2f | Rp%-18.2f |\n", "Biaya/Bulan", biaya_listrik_pln[0], biaya_listrik_pln[1]);
-	if(total_kwh_pln[1] <= 0) {
-		printf("| %-20s| Rp%-18.2f | keuntungan: Rp%-12f |\n", "Biaya Akhir Simulasi", biaya_listrik_pln[0]*jumlahBulan, keuntungan*harga_kwh*jumlahBulan);
-		printf("| %-20s| %-17.2f Kwh | Berlebihan kwh: %-17.2f Kwh |\n", "Total KWH", total_kwh_pln[0]*jumlahBulan, keuntungan*jumlahBulan);
-	} else {
-		printf("| %-20s| Rp%-18.2f | Rp%-18.2f |\n", "Biaya Akhir Simulasi", biaya_listrik_pln[0]*jumlahBulan, biaya_listrik_pln[1]*jumlahBulan);
-		printf("| %-20s| %-17.2f Kwh | %-17.2f Kwh |\n", "Total KWH", total_kwh_pln[0]*jumlahBulan, total_kwh_pln[1]*jumlahBulan);
-	}
-	printf("| %-20s| %-20.2f | %-20.2f |\n", "Emisi Karbon", emisi_karbon[0]*jumlahBulan, emisi_karbon[1]*jumlahBulan);
-
-	printf("+==================================================================+\n");
-
+	free(perangkat);
 	return 0; //selesai
 }
