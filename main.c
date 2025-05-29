@@ -303,6 +303,7 @@ int main (){
 		}
 	}
 
+
 	if (panelSurya == 0 && turbinAngin == 0) {
 		return 0;
 	}
