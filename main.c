@@ -25,7 +25,7 @@ void cek_pengurangan_alat(Alat *alat, int index_alat, int temp){ //function untu
 	*/ 
 
 int main (){
-	int pilihan, n = 0, i; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
+	int pilihan, n = 0, i, j; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
 	float harga_kwh = 1444.7; 
 	float total_kwh_pln[2] = {0};
 	float biaya_listrik_pln[2] = {0};
@@ -169,19 +169,20 @@ do{
 					printf("Pilihan : ");
 					scanf("%d", &pilihan);
 					
+					// Memastikan input tidak bisa bernilai negatif atau lebih dari jumlah sekarang
 					switch (pilihan) {
 						case 1:
 						do {
 							printf("Jumlah : %d\n", alat[0].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-							if (temp <= alat[0].jumlah_alat){
+							if (temp <= alat[0].jumlah_alat && temp > 0){
 								alat[0].jumlah_alat -= temp;
 								break;
 							} else{
-								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
+								printf("Input Invalid. Silahkan coba lagi\n");
 							}
-						} while(temp>alat[0].jumlah_alat);
+						} while(temp>alat[0].jumlah_alat && temp <= 0);
 						break;
 
 						case 2:
@@ -189,13 +190,13 @@ do{
 							printf("Jumlah : %d\n", alat[1].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-							if (temp <= alat[1].jumlah_alat){
+							if (temp <= alat[1].jumlah_alat && temp > 0){
 								alat[1].jumlah_alat -= temp;
 								break;
 							} else{
-								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
+								printf("Input Invalid. Silahkan coba lagi\n");
 							}
-						} while(temp>alat[1].jumlah_alat);
+						} while(temp>alat[1].jumlah_alat && temp <= 0);
 						break;
 
 						case 3:
@@ -203,13 +204,13 @@ do{
 							printf("Jumlah : %d\n", alat[2].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-							if (temp <= alat[2].jumlah_alat){
+							if (temp <= alat[2].jumlah_alat && temp > 0){
 								alat[2].jumlah_alat -= temp;
 								break;
 							} else{
-								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
+								printf("Input Invalid. Silahkan coba lagi\n");
 							}
-						} while(temp>alat[2].jumlah_alat);
+						} while(temp>alat[2].jumlah_alat && temp <= 0);
 						break;
 
 						case 4:
@@ -217,13 +218,13 @@ do{
 							printf("Jumlah : %d\n", alat[3].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-							if (temp <= alat[3].jumlah_alat){
+							if (temp <= alat[3].jumlah_alat && temp > 0){
 								alat[3].jumlah_alat -= temp;
 								break;
 							} else{
-								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
+								printf("Input Invalid. Silahkan coba lagi\n");
 							}
-						} while(temp>alat[3].jumlah_alat);
+						} while(temp>alat[3].jumlah_alat && temp <= 0);
 						break;
 
 						case 5:
@@ -231,13 +232,13 @@ do{
 							printf("Jumlah : %d\n", alat[4].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-							if (temp <= alat[4].jumlah_alat){
+							if (temp <= alat[4].jumlah_alat && temp > 0){
 								alat[4].jumlah_alat -= temp;
 								break;
 							} else{
-								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
+								printf("Input Invalid. Silahkan coba lagi\n");
 							}
-						} while(temp>alat[4].jumlah_alat);
+						} while(temp>alat[4].jumlah_alat && temp <= 0);
 						break;
 
 						case 6:
@@ -245,13 +246,13 @@ do{
 							printf("Jumlah : %d\n", alat[5].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
 							scanf("%d", &temp);
-							if (temp <= alat[5].jumlah_alat){
+							if (temp <= alat[5].jumlah_alat && temp > 0){
 								alat[5].jumlah_alat -= temp;
 								break;
 							} else{
-								printf("Invalid: tidak bisa mengurangi lebih dari jumlah alat, coba kembali");
+								printf("Input Invalid. Silahkan coba lagi\n");
 							}
-						} while(temp>alat[5].jumlah_alat);
+						} while(temp>alat[5].jumlah_alat && temp <= 0);
 						break;
 
 						case 7:
@@ -270,13 +271,16 @@ do{
 	int jumlahBulan;
 	float modal;
 
-	printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
-	scanf("%d", &jumlahBulan);
+	do{
+		printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
+		scanf("%d", &jumlahBulan);
+		if (jumlahBulan <= 0)printf("Input Invalid. Silahkan Coba lagi");
+	} while (jumlahBulan <= 0);
 	
 	for (i = 0; i < 6; i++) {
 		total_kwh_pln[1] -= alat[i].kwh_alat * alat[i].jumlah_alat;
 	}
-	for (int j=0; j<6; j++){ //menghitung total biaya yang dibutuhkan untuk membeli alat 
+	for (j=0; j<6; j++){ //menghitung total biaya yang dibutuhkan untuk membeli alat 
 		modal += alat[j].harga_alat * alat[j].jumlah_alat;
 	}
 	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
