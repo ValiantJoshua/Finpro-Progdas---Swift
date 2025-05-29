@@ -205,7 +205,7 @@ int main (){
 						case 4:
 							printf("Jumlah : %d\n", alat[3].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[3].jumlah_alat, 0);
+							temp = inputWErrorHandlingForInt(alat[3].jumlah_alat,  0);
 							alat[3].jumlah_alat -= temp;
 							break;
 
