@@ -13,6 +13,7 @@ typedef struct {
 	int harga_alat;
 	float kwh_alat; // per bulan
 	int jumlah_alat;
+	float emisi_Karbon;
 } Alat;
 
 int displayHouse (int panelSurya, int turbinAngin){
@@ -184,12 +185,12 @@ int main (){
 	}
 
 	Alat alat[6] = {
-        {.nama_alat = "Panel Surya 100 W",   .harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
-        {.nama_alat = "Panel Surya 300 W",   .harga_alat = 1800000,  .kwh_alat = 45,   .jumlah_alat = 0}, // panel_surya2
-        {.nama_alat = "Panel Surya 550 W",   .harga_alat = 2600000,  .kwh_alat = 82.5, .jumlah_alat = 0}, // panel_surya3
-        {.nama_alat = "Turbin Angin 300 W",  .harga_alat = 4000000,  .kwh_alat = 72,   .jumlah_alat = 0}, // turbin_angin1
-        {.nama_alat = "Turbin Angin 800 W",  .harga_alat = 8000000,  .kwh_alat = 192,  .jumlah_alat = 0}, // turbin_angin2
-        {.nama_alat = "Turbin Angin 1000 W", .harga_alat = 10000000, .kwh_alat = 240,  .jumlah_alat = 0}  // turbin_angin3
+        {.nama_alat = "Panel Surya 100 W",   .harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0, .emisi_Karbon = 0.05}, // panel_surya1
+        {.nama_alat = "Panel Surya 300 W",   .harga_alat = 1800000,  .kwh_alat = 45,   .jumlah_alat = 0, .emisi_Karbon = 0.05}, // panel_surya2
+        {.nama_alat = "Panel Surya 550 W",   .harga_alat = 2600000,  .kwh_alat = 82.5, .jumlah_alat = 0, .emisi_Karbon = 0.05}, // panel_surya3
+        {.nama_alat = "Turbin Angin 300 W",  .harga_alat = 4000000,  .kwh_alat = 72,   .jumlah_alat = 0, .emisi_Karbon = 0.02}, // turbin_angin1
+        {.nama_alat = "Turbin Angin 800 W",  .harga_alat = 8000000,  .kwh_alat = 192,  .jumlah_alat = 0, .emisi_Karbon = 0.02}, // turbin_angin2
+        {.nama_alat = "Turbin Angin 1000 W", .harga_alat = 10000000, .kwh_alat = 240,  .jumlah_alat = 0, .emisi_Karbon = 0.02}  // turbin_angin3
 	};
 
 	int temp;
@@ -197,12 +198,12 @@ int main (){
 	printf("\nToko Alat Renewable Energy\n");
 	while (pilihan != 8) {
 		printf("Pilih alat yang ingin dibeli\n");
-		printf("1. Panel Surya 100 W   | (+-15 kWh/bulan)   | (Rp600.000)\n");
-		printf("2. Panel Surya 300 W   | (+-45 kWh/bulan)   | (Rp1.800.000)\n");
-		printf("3. Panel Surya 550 W   | (+-82,5 kWh/bulan) | (Rp2.600.000)\n");
-		printf("4. Turbin Angin 300 W  | (+-72 kWh/bulan)   | (Rp4.000.000)\n");
-		printf("5. Turbin Angin 800 W  | (+-192 kWh/bulan)  | (Rp8.000.000)\n");
-		printf("6. Turbin Angin 1000 W | (+-240 kWh/bulan)  | (Rp10.000.000)\n");
+		printf("1. Panel Surya 100 W   | (+-15 kWh/bulan)   | (Rp600.000)    | (0.05 Kg/KwH) |\n");
+		printf("2. Panel Surya 300 W   | (+-45 kWh/bulan)   | (Rp1.800.000)  | (0.05 Kg/KwH) |\n");
+		printf("3. Panel Surya 550 W   | (+-82,5 kWh/bulan) | (Rp2.600.000)  | (0.05 Kg/KwH) |\n");
+		printf("4. Turbin Angin 300 W  | (+-72 kWh/bulan)   | (Rp4.000.000)  | (0.02 Kg/KwH) |\n");
+		printf("5. Turbin Angin 800 W  | (+-192 kWh/bulan)  | (Rp8.000.000)  | (0.02 Kg/KwH) |\n");
+		printf("6. Turbin Angin 1000 W | (+-240 kWh/bulan)  | (Rp10.000.000) | (0.02 Kg/KwH) |\n");
 		printf("7. Lihat isi keranjang\n");
 		printf("8. Selesai\n");
 		printf("Pilihan : ");
@@ -332,6 +333,7 @@ int main (){
 		total_kwh_pln[1] += alat[i].kwh_alat * alat[i].jumlah_alat;
 		if (alat[i].jumlah_alat) {
 			printf("%s %dx\n", alat[i].nama_alat, alat[i].jumlah_alat);
+			emisi_karbon[1] += alat[i].emisi_Karbon * alat[i].jumlah_alat * alat[i].kwh_alat;
 		}
 	}
 
@@ -341,25 +343,26 @@ int main (){
 	biaya_listrik_pln[1] = total_kwh_pln[1] * harga_kwh;
 	printf("Total biaya listrik yang dihemat per bulan : Rp%.2f\n", biaya_listrik_pln[1]);
 
-	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
+//	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
 	if(total_kwh_pln[1] < total_kwh_pln[0]){
 		total_kwh_pln[1] = total_kwh_pln[0] - total_kwh_pln[1]; // Mengubah total_kwh_pln[1] dari yang listrik dihemat menjadi total listrik baru dengan renewable energy
 		biaya_listrik_pln[1] = biaya_listrik_pln[0] - biaya_listrik_pln[1]; // ini juga sama tapi untuk biaya
 	} else if (total_kwh_pln[1] > total_kwh_pln[0]){
-		total_kwh_pln[1] -= total_kwh_pln[0];
-		biaya_listrik_pln[1] -= biaya_listrik_pln[0];
+		total_kwh_pln[1] = 0;
+		biaya_listrik_pln[1] = 0;
 	}
 
 	printf("Total emisi karbon yang dihemat : %.2fkg", emisi_karbon[1]);
 
-	if(emisi_karbon[0] > emisi_karbon[0]){
-		emisi_karbon[1] = emisi_karbon[0] - emisi_karbon[1];
-	} else if (emisi_karbon[1] > emisi_karbon[0]){
-		emisi_karbon[1] -= emisi_karbon[0];
-	}
+//	if(emisi_karbon[0] > emisi_karbon[0]){
+//		emisi_karbon[1] = emisi_karbon[0] - emisi_karbon[1];
+//	} else if (emisi_karbon[1] > emisi_karbon[0]){
+//		emisi_karbon[1] -= emisi_karbon[0];
+//	}
 
 	int jumlahBulan;
 	int waktu_balik_modal = biaya_alat / (biaya_listrik_pln[0] - biaya_listrik_pln[1]);
+	if(biaya_listrik_pln[1] == 0)waktu_balik_modal = 0;
 
 
 
@@ -386,6 +389,7 @@ int main (){
 	printf("Total biaya : Rp%.2f | Rp%.2f\n", biaya_listrik_pln[0] * jumlahBulan, biaya_listrik_pln[1] * jumlahBulan + biaya_alat);
 	printf("Total emisi karbon : %.2f kg | %.2f kg\n", emisi_karbon[0] * jumlahBulan, emisi_karbon[1] * jumlahBulan);
 	printf("Waktu untuk balik modal biaya alat : %d bulan", waktu_balik_modal);
+	
 
 	free(perangkat);
 	return 0; //selesai
