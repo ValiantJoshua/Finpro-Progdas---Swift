@@ -342,12 +342,21 @@ int main (){
 	printf("Total biaya listrik yang dihemat per bulan : Rp%.2f\n", biaya_listrik_pln[1]);
 
 	emisi_karbon[1] = total_kwh_pln[1] * 0.85;
-	total_kwh_pln[1] = total_kwh_pln[0] - total_kwh_pln[1]; // Mengubah total_kwh_pln[1] dari yang listrik dihemat menjadi total listrik baru dengan renewable energy
-	biaya_listrik_pln[1] = biaya_listrik_pln[0] - biaya_listrik_pln[1]; // ini juga sama tapi untuk biaya
+	if(total_kwh_pln[1] < total_kwh_pln[0]){
+		total_kwh_pln[1] = total_kwh_pln[0] - total_kwh_pln[1]; // Mengubah total_kwh_pln[1] dari yang listrik dihemat menjadi total listrik baru dengan renewable energy
+		biaya_listrik_pln[1] = biaya_listrik_pln[0] - biaya_listrik_pln[1]; // ini juga sama tapi untuk biaya
+	} else if (total_kwh_pln[1] > total_kwh_pln[0]){
+		total_kwh_pln[1] -= total_kwh_pln[0];
+		biaya_listrik_pln[1] -= biaya_listrik_pln[0];
+	}
 
 	printf("Total emisi karbon yang dihemat : %.2fkg", emisi_karbon[1]);
 
-	emisi_karbon[1] = emisi_karbon[0] - emisi_karbon[1];
+	if(emisi_karbon[0] > emisi_karbon[0]){
+		emisi_karbon[1] = emisi_karbon[0] - emisi_karbon[1];
+	} else if (emisi_karbon[1] > emisi_karbon[0]){
+		emisi_karbon[1] -= emisi_karbon[0];
+	}
 
 	int jumlahBulan;
 	int waktu_balik_modal = biaya_alat / (biaya_listrik_pln[0] - biaya_listrik_pln[1]);
