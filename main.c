@@ -95,6 +95,22 @@ int inputWErrorHandlingForInt (int max, int min){
 	return input;
 }
 
+float inputWErrorHandlingForFloat (float max, float min){
+	float input;
+	if (max == -1){
+		do{
+			scanf("%f", &input);
+			if (input <= min)puts("Input Invalid, silahkan coba lagi.");
+		} while (input <= min);
+		return input;
+	}
+	do{
+		scanf("%f", &input);
+		if (input > max || input <= min)puts("Input Invalid, silahkan coba lagi.");
+	} while (input > max || input <= min);
+	return input;
+}
+
 int main (){
 	int pilihan, mode, n = 0, i, j; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
 	float harga_kwh = 1444.7; 
@@ -122,13 +138,13 @@ int main (){
 				scanf(" %[^\n]", perangkat[n].nama);
 
 				printf("Daya (Watt): ");
-				scanf("%f", &perangkat[n].daya_perangkat);
+				perangkat[n].daya_perangkat = inputWErrorHandlingForFloat(-1,0);
 
 				printf("Rata-rata durasi pemakaian per hari (jam): ");
-				scanf("%f", &perangkat[n].durasi_perangkat); 
+				perangkat[n].durasi_perangkat = inputWErrorHandlingForFloat(-1,0);
 
 				printf("\nApakah masih ada perangkat lagi? (1 = Ya, 0 = Tidak): ");
-				scanf("%d", &pilihan);
+				pilihan = inputWErrorHandlingForInt(1,-1);
 				if (pilihan == 0) {
 					break;
 				}
@@ -144,7 +160,7 @@ int main (){
 			break;
 		} else if (mode == 2) {
 			printf("Daya total yang digunakan per bulan (kWh) : ");
-			total_kwh_pln[0] = inputWErrorHandlingForInt(-1,0);
+			total_kwh_pln[0] = inputWErrorHandlingForFloat(-1,0);
 			break;
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
@@ -248,42 +264,42 @@ int main (){
 						case 1:
 							printf("Jumlah : %d\n", alat[0].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[0].jumlah_alat, 0);
+							temp = inputWErrorHandlingForInt(alat[0].jumlah_alat, -1);
 							alat[0].jumlah_alat -= temp;
 							break;
 
 						case 2:
 							printf("Jumlah : %d\n", alat[1].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, 0);
+							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, -1);
 							alat[1].jumlah_alat -= temp;
 							break;
 
 						case 3:
 							printf("Jumlah : %d\n", alat[2].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[2].jumlah_alat, 0);
+							temp = inputWErrorHandlingForInt(alat[2].jumlah_alat, -1);
 							alat[2].jumlah_alat -= temp;
 							break;
 
 						case 4:
 							printf("Jumlah : %d\n", alat[3].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[3].jumlah_alat, 0);
+							temp = inputWErrorHandlingForInt(alat[3].jumlah_alat, -1);
 							alat[3].jumlah_alat -= temp;
 							break;
 
 						case 5:
 							printf("Jumlah : %d\n", alat[4].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[4].jumlah_alat, 0);
+							temp = inputWErrorHandlingForInt(alat[4].jumlah_alat, -1);
 							alat[4].jumlah_alat -= temp;
 							break;
 
 						case 6:
 							printf("Jumlah : %d\n", alat[5].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[5].jumlah_alat, 0);
+							temp = inputWErrorHandlingForInt(alat[5].jumlah_alat, -1);
 							alat[5].jumlah_alat -= temp;
 							break;
 
