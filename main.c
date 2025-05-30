@@ -10,7 +10,6 @@ typedef struct {
 
 typedef struct {
 	char nama_alat[20];
-	char nama_alat[20];
 	int harga_alat;
 	float kwh_alat; // per bulan
 	int jumlah_alat;
@@ -169,12 +168,6 @@ int main (){
 	}
 
 	Alat alat[6] = {
-        {.nama_alat = "Panel Surya 100 W",   .harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
-        {.nama_alat = "Panel Surya 300 W",   .harga_alat = 1800000,  .kwh_alat = 45,   .jumlah_alat = 0}, // panel_surya2
-        {.nama_alat = "Panel Surya 550 W",   .harga_alat = 2600000,  .kwh_alat = 82.5, .jumlah_alat = 0}, // panel_surya3
-        {.nama_alat = "Turbin Angin 300 W",  .harga_alat = 4000000,  .kwh_alat = 72,   .jumlah_alat = 0}, // turbin_angin1
-        {.nama_alat = "Turbin Angin 800 W",  .harga_alat = 8000000,  .kwh_alat = 192,  .jumlah_alat = 0}, // turbin_angin2
-        {.nama_alat = "Turbin Angin 1000 W", .harga_alat = 10000000, .kwh_alat = 240,  .jumlah_alat = 0}  // turbin_angin3
         {.nama_alat = "Panel Surya 100 W",   .harga_alat = 600000,   .kwh_alat = 15,   .jumlah_alat = 0}, // panel_surya1
         {.nama_alat = "Panel Surya 300 W",   .harga_alat = 1800000,  .kwh_alat = 45,   .jumlah_alat = 0}, // panel_surya2
         {.nama_alat = "Panel Surya 550 W",   .harga_alat = 2600000,  .kwh_alat = 82.5, .jumlah_alat = 0}, // panel_surya3
