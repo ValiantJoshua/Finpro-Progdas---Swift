@@ -350,13 +350,13 @@ int main (){
 
 	emisi_karbon[1] = emisi_karbon[0] - emisi_karbon[1];
 
-	float jumlahBulan;
+	int jumlahBulan;
 	int waktu_balik_modal = biaya_alat / (biaya_listrik_pln[0] - biaya_listrik_pln[1]);
 
 
 
 	printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
-	jumlahBulan = inputWErrorHandlingForFloat(-1,0);
+	jumlahBulan = inputWErrorHandlingForInt(-1,0);
 
     displayHouse(panelSurya, turbinAngin);
 	
