@@ -139,13 +139,13 @@ int main (){
 				scanf(" %[^\n]", perangkat[n].nama);
 
 				printf("Daya (Watt): ");
-				perangkat[i].daya_perangkat = inputWErrorHandlingForFloat(-1, 0);
+				perangkat[n].daya_perangkat = inputWErrorHandlingForFloat(-1, 0);
 
 				printf("Rata-rata durasi pemakaian per hari (jam): ");
 				perangkat[n].durasi_perangkat = inputWErrorHandlingForFloat(24,0);
 
 				printf("\nApakah masih ada perangkat lagi? (1 = Ya, 0 = Tidak): ");
-				scanf("%d", &pilihan);
+				pilihan = inputWErrorHandlingForInt(1, -1);
 				if (pilihan == 0) {
 					break;
 				}
