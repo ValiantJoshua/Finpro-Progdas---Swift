@@ -114,6 +114,25 @@ float floatInputErrorHandling (float max, float min) {
 	return input;
 }
 
+void kurangi_jumlah_alat(Alat *alat, int n, int *jumlah_alat){
+	if (alat[n].jumlah_alat > 0){
+		printf("Jumlah alat : %d\n", alat[n].jumlah_alat);
+		printf("Jumlah yang ingin dikurangi : ");
+		int temp = intInputErrorHandling(alat[n].jumlah_alat, -1);
+		alat[n].jumlah_alat -= temp;
+		*jumlah_alat -= temp;
+		} else {
+			printf("Input Invalid, silahkan coba lagi\n");
+		}
+}
+
+void tambah_jumlah_alat(Alat *alat, int n, int *jumlah_alat){
+	printf("Jumlah : ");
+	int temp = intInputErrorHandling(-1, 0);
+	alat[n].jumlah_alat += temp;
+	*jumlah_alat += temp;
+}
+
 int main (){
 	int pilihan, mode, n = 0; // input pilihan user, input mode, dan counter
 	float harga_kwh = 1444.7; 
@@ -223,40 +242,22 @@ int main (){
 
 		switch (pilihan) {
 			case 1:
-				printf("Jumlah : ");
-				temp = intInputErrorHandling(-1, 0);
-				alat[0].jumlah_alat += temp;
-				jumlah_panel += temp;
+				tambah_jumlah_alat(alat, 0, &jumlah_panel);
 				break;
 			case 2:
-				printf("Jumlah : ");
-				temp = intInputErrorHandling(-1, 0);
-				alat[1].jumlah_alat += temp;
-				jumlah_panel += temp;
+				tambah_jumlah_alat(alat, 1, &jumlah_panel);
 				break;
 			case 3:
-				printf("Jumlah : ");
-				temp = intInputErrorHandling(-1, 0);
-				alat[2].jumlah_alat += temp;
-				jumlah_panel += temp;
+				tambah_jumlah_alat(alat, 2, &jumlah_panel);
 				break;
 			case 4:
-				printf("Jumlah : ");
-				temp = intInputErrorHandling(-1, 0);
-				alat[3].jumlah_alat += temp;
-				jumlah_turbin += temp;
+				tambah_jumlah_alat(alat, 3, &jumlah_turbin);
 				break;
 			case 5:
-				printf("Jumlah : ");
-				temp = intInputErrorHandling(-1, 0);
-				alat[4].jumlah_alat += temp;
-				jumlah_turbin += temp;
+				tambah_jumlah_alat(alat, 4, &jumlah_turbin);
 				break;
 			case 6:
-				printf("Jumlah : ");
-				temp = intInputErrorHandling(-1, 0);
-				alat[5].jumlah_alat += temp;
-				jumlah_turbin += temp;
+				tambah_jumlah_alat(alat, 5, &jumlah_turbin);
 				break;
 			case 7:
 				do {
@@ -282,75 +283,27 @@ int main (){
 					// Memastikan input tidak bisa bernilai negatif atau lebih dari jumlah sekarang
 					switch (pilihan) {
 						case 1:
-							if (alat[0].jumlah_alat > 0){
-								printf("Jumlah alat : %d\n", alat[0].jumlah_alat);
-								printf("Jumlah yang ingin dikurangi : ");
-								temp = intInputErrorHandling(alat[0].jumlah_alat, -1);
-								alat[0].jumlah_alat -= temp;
-								jumlah_panel -= temp;
-							} else {
-								printf("Input Invalid, silahkan coba lagi\n");
-							}
+							kurangi_jumlah_alat(alat, 0, &jumlah_panel);
 							break;
 
 						case 2:
-							if (alat[1].jumlah_alat > 0){
-								printf("Jumlah : %d\n", alat[1].jumlah_alat);
-								printf("Jumlah yang ingin dikurangi : ");
-								temp = intInputErrorHandling(alat[1].jumlah_alat, -1);
-								alat[1].jumlah_alat -= temp;
-								jumlah_panel -= temp;
-							} else {
-								printf("Input Invalid, silahkan coba lagi\n");
-							}
+							kurangi_jumlah_alat(alat, 1, &jumlah_panel);
 							break;
 
 						case 3:
-							if (alat[2].jumlah_alat > 0){
-								printf("Jumlah : %d\n", alat[2].jumlah_alat);
-								printf("Jumlah yang ingin dikurangi : ");
-								temp = intInputErrorHandling(alat[2].jumlah_alat, -1);
-								alat[2].jumlah_alat -= temp;
-								jumlah_panel -= temp;
-							} else {
-								printf("Input Invalid, silahkan coba lagi\n");
-							}
+							kurangi_jumlah_alat(alat, 2, &jumlah_panel);
 							break;
 
 						case 4:
-							if (alat[3].jumlah_alat > 0){
-								printf("Jumlah : %d\n", alat[3].jumlah_alat);
-								printf("Jumlah yang ingin dikurangi : ");
-								temp = intInputErrorHandling(alat[3].jumlah_alat, -1);
-								alat[3].jumlah_alat -= temp;
-								jumlah_turbin -= temp;
-							} else {
-								printf("Input Invalid, silahkan coba lagi\n");
-							}
+							kurangi_jumlah_alat(alat, 3, &jumlah_turbin);
 							break;
 
 						case 5:
-							if (alat[4].jumlah_alat > 0){
-								printf("Jumlah : %d\n", alat[4].jumlah_alat);
-								printf("Jumlah yang ingin dikurangi : ");
-								temp = intInputErrorHandling(alat[4].jumlah_alat, -1);
-								alat[4].jumlah_alat -= temp;
-								jumlah_turbin -= temp;
-							} else {
-								printf("Input Invalid, silahkan coba lagi\n");
-							}
+							kurangi_jumlah_alat(alat, 4, &jumlah_turbin);
 							break;
 							
 						case 6:
-							if (alat[5].jumlah_alat > 0){
-								printf("Jumlah : %d\n", alat[5].jumlah_alat);
-								printf("Jumlah yang ingin dikurangi : ");
-								temp = intInputErrorHandling(alat[5].jumlah_alat, -1);
-								alat[5].jumlah_alat -= temp;
-								jumlah_turbin -= temp;
-							} else {
-								printf("Input invalid, silakan coba lagi\n");
-							}
+							kurangi_jumlah_alat(alat, 5, &jumlah_turbin);
 							break;
 
 						case 7:
