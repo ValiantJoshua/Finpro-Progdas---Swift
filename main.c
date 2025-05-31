@@ -173,12 +173,15 @@ int main (){
 
 	if (mode == 1) {
 		printf("Perangkat Rumah");
+		printf("\n+---------------------+---------------------+---------------------+\n");
+		printf("| %-20s| %-20s| %-20s|\n", "Perangkat", "Listrik per bulan", "Biaya per bulan");
+		printf("+---------------------+---------------------+---------------------+\n");
 		for (i = 0; i <= n; i++) {
-			printf("\nPerangkat-%d : %s\n", i + 1, perangkat[i].nama);
-			printf("Listrik per bulan : %.2f kWh\n", perangkat[i].kwh_perangkat);
+			printf("| %-20s| %-16.2f kwh| Rp%-18.2f|\n", perangkat[i].nama, perangkat[i].kwh_perangkat, perangkat[i].kwh_perangkat*harga_kwh );
 		}
-		printf("Total listrik per bulan : %.2f kWh\n", total_kwh_pln[0]);
-		printf("Total biaya listrik per bulan : Rp%f\n", biaya_listrik_pln[0]);
+		printf("+---------------------+---------------------+---------------------+\n");
+		printf("| %-20s| %-16.2f kwh| Rp%-18.2f|\n", "Total", total_kwh_pln[0 ], biaya_listrik_pln[0] );
+		printf("+---------------------+---------------------+---------------------+\n");
 	} else if (mode == 2) {
 		printf("Total listrik per bulan : %.2f kWh\n", total_kwh_pln[0]);
 		printf("Total biaya listrik per bulan : Rp%.2f\n", biaya_listrik_pln[0]);
