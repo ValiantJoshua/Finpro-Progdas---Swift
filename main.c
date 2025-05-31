@@ -96,6 +96,22 @@ int inputWErrorHandlingForInt (int max, int min){
 	return input;
 }
 
+float inputWErrorHandlingForFloat (float max, float min){
+	float input;
+	if (max == -1){
+		do{
+			scanf("%f", &input);
+			if (input <= min)puts("Input Invalid, silahkan coba lagi.");
+		} while (input <= min);
+		return input;
+	}
+	do{
+		scanf("%f", &input);
+		if (input > max || input <= min)puts("Input Invalid, silahkan coba lagi.");
+	} while (input > max || input <= min);
+	return input;
+}
+
 int main (){
 	int pilihan, mode, n = 0, i, j; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
 	float harga_kwh = 1444.7; 
@@ -123,13 +139,13 @@ int main (){
 				scanf(" %[^\n]", perangkat[n].nama);
 
 				printf("Daya (Watt): ");
-				scanf("%f", &perangkat[n].daya_perangkat);
+				perangkat[n].daya_perangkat = inputWErrorHandlingForFloat(-1, 0);
 
 				printf("Rata-rata durasi pemakaian per hari (jam): ");
-				scanf("%f", &perangkat[n].durasi_perangkat); 
+				perangkat[n].durasi_perangkat = inputWErrorHandlingForFloat(24,0);
 
 				printf("\nApakah masih ada perangkat lagi? (1 = Ya, 0 = Tidak): ");
-				scanf("%d", &pilihan);
+				pilihan = inputWErrorHandlingForInt(1, -1);
 				if (pilihan == 0) {
 					break;
 				}
