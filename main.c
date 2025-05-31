@@ -151,9 +151,8 @@ int main (){
 				if (pilihan == 0) {
 					break;
 				}
-				//jika masih lanjut, maka tambah ukuran array (+ 1)
-  				perangkat = (Perangkat *) realloc (perangkat, (n + 2) * sizeof(Perangkat));
 				n++;
+  				perangkat = (Perangkat *) realloc (perangkat, (n + 1) * sizeof(Perangkat));
 			} while (pilihan == 1);
 
 			for (int i = 0; i <= n; i++) {
