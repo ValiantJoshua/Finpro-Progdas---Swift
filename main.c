@@ -10,7 +10,7 @@ typedef struct {
 
 typedef struct {
 	char nama_alat[20];
-	int harga_alat; 
+	int harga_alat;
 	float kwh_alat; // per bulan
 	int jumlah_alat;
 	float emisi_karbon_alat;
@@ -96,31 +96,11 @@ int inputWErrorHandlingForInt (int max, int min){
 	return input;
 }
 
-float inputWErrorHandlingForFloat (float max, float min){
-	float input;
-	if (max == -1){
-		do{
-			scanf("%f", &input);
-			if (input <= min)puts("Input Invalid, silahkan coba lagi.");
-		} while (input <= min);
-		return input;
-	}
-	do{
-		scanf("%f", &input);
-		if (input > max || input <= min)puts("Input Invalid, silahkan coba lagi.");
-	} while (input > max || input <= min);
-	return input;
-}
-
 int main (){
-	char finalMessage[100] = "Program Selesai.";
 	int pilihan, mode, n = 0, i, j; //yang diinput user nanti untuk memilih apakah mau lanjut menambahkan perangkat atau tidak dan n = counter
-	int jumlahBulan;
-	int waktu_balik_modal;
 	float harga_kwh = 1444.7; 
 	float total_kwh_pln[2] = {0};
 	float biaya_listrik_pln[2] = {0};
-	float biaya_alat = 0;
 	float emisi_karbon[2] = {0};
 	int panelSurya = 0, turbinAngin = 0;
 	Perangkat *perangkat = (Perangkat *)malloc(1 * sizeof(Perangkat)); //buat pointer ke struct dan alokasi ukuran array perangkat jadi 1 terlebih dahulu
@@ -143,13 +123,13 @@ int main (){
 				scanf(" %[^\n]", perangkat[n].nama);
 
 				printf("Daya (Watt): ");
-				perangkat[n].daya_perangkat = inputWErrorHandlingForFloat(-1,0);
+				scanf("%f", &perangkat[n].daya_perangkat);
 
 				printf("Rata-rata durasi pemakaian per hari (jam): ");
-				perangkat[n].durasi_perangkat = inputWErrorHandlingForFloat(-1,0);
+				scanf("%f", &perangkat[n].durasi_perangkat); 
 
 				printf("\nApakah masih ada perangkat lagi? (1 = Ya, 0 = Tidak): ");
-				pilihan = inputWErrorHandlingForInt(1,-1);
+				scanf("%d", &pilihan);
 				if (pilihan == 0) {
 					break;
 				}
@@ -165,7 +145,7 @@ int main (){
 			break;
 		} else if (mode == 2) {
 			printf("Daya total yang digunakan per bulan (kWh) : ");
-			total_kwh_pln[0] = inputWErrorHandlingForFloat(-1,0);
+			total_kwh_pln[0] = inputWErrorHandlingForInt(-1,0);
 			break;
 		} else {
 			printf("\nInput tidak sesuai, Coba kembali\n");
@@ -269,42 +249,42 @@ int main (){
 						case 1:
 							printf("Jumlah : %d\n", alat[0].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[0].jumlah_alat, -1);
+							temp = inputWErrorHandlingForInt(alat[0].jumlah_alat, 0);
 							alat[0].jumlah_alat -= temp;
 							break;
 
 						case 2:
 							printf("Jumlah : %d\n", alat[1].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, -1);
+							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, 0);
 							alat[1].jumlah_alat -= temp;
 							break;
 
 						case 3:
 							printf("Jumlah : %d\n", alat[2].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[2].jumlah_alat, -1);
+							temp = inputWErrorHandlingForInt(alat[2].jumlah_alat, 0);
 							alat[2].jumlah_alat -= temp;
 							break;
 
 						case 4:
 							printf("Jumlah : %d\n", alat[3].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[3].jumlah_alat, -1);
+							temp = inputWErrorHandlingForInt(alat[3].jumlah_alat,  0);
 							alat[3].jumlah_alat -= temp;
 							break;
 
 						case 5:
 							printf("Jumlah : %d\n", alat[4].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[4].jumlah_alat, -1);
+							temp = inputWErrorHandlingForInt(alat[4].jumlah_alat, 0);
 							alat[4].jumlah_alat -= temp;
 							break;
 
 						case 6:
 							printf("Jumlah : %d\n", alat[5].jumlah_alat);
 							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[5].jumlah_alat, -1);
+							temp = inputWErrorHandlingForInt(alat[5].jumlah_alat, 0);
 							alat[5].jumlah_alat -= temp;
 							break;
 
@@ -329,6 +309,7 @@ int main (){
 		return 0;
 	}
 
+	float biaya_alat = 0;
 	// output alat apa aja yang dibeli
 	printf("Alat Renewable Energy yang digunakan\n");
 	for (i = 0; i < 6; i++) {
@@ -339,6 +320,7 @@ int main (){
 			emisi_karbon[1] = alat[i].emisi_karbon_alat * alat[i].kwh_alat * alat[i].jumlah_alat;
 		}
 	}
+
 	printf("Total biaya alat : %.2f\n", biaya_alat);
 	printf("Total listrik yang dihemat per bulan : %.2f kWh\n", total_kwh_pln[1]);
 
@@ -348,35 +330,41 @@ int main (){
 	total_kwh_pln[1] = total_kwh_pln[0] - total_kwh_pln[1]; // Mengubah total_kwh_pln[1] dari yang listrik dihemat menjadi total listrik baru dengan renewable energy
 	biaya_listrik_pln[1] = biaya_listrik_pln[0] - biaya_listrik_pln[1]; // ini juga sama tapi untuk biaya
 
-
 	printf("Total emisi karbon yang dihemat : %.2fkg", emisi_karbon[1]);
 
+	emisi_karbon[1] = emisi_karbon[0] - emisi_karbon[1];
 
-	waktu_balik_modal = biaya_alat / (biaya_listrik_pln[0] - biaya_listrik_pln[1]);
-	if(total_kwh_pln[1] < 0){
-		total_kwh_pln[1] = 0; 
-		biaya_listrik_pln[1] = 0;
-		waktu_balik_modal = 0;
-		sprintf(finalMessage, "%s\n%s", "Jumlah KwH per-bulan Renewable Energy lebih tinggi dari Keperluan.", "Program Selesai.");
-	}
+	int jumlahBulan;
+	int waktu_balik_modal = biaya_alat / (biaya_listrik_pln[0] - biaya_listrik_pln[1]);
+
+
 
 	printf("\nTentukan Berapa lama simulasi berjalan (bulan): ");
 	jumlahBulan = inputWErrorHandlingForInt(-1,0);
 
     displayHouse(panelSurya, turbinAngin);
+	
 
 	printf("Simulasi Renewable Energy %d Bulan\n", jumlahBulan);
 	printf("\n+---------------------+---------------------+---------------------+\n");
 	printf("| %-20s| %-20s| %-20s|\n", "Perbandingan", "Non-Renewable", "Renewable");
 	printf("+---------------------+---------------------+---------------------+\n");
-	printf("| %-20s| %-20.2f| %-20.2f|\n", "Listrik (kWh)", total_kwh_pln[0] * jumlahBulan, total_kwh_pln[1] * jumlahBulan);
-	printf("| %-20s| %-20.2f| %-20.2f|\n", "Biaya Listrik (Rp)", biaya_listrik_pln[0] * jumlahBulan, biaya_listrik_pln[1] * jumlahBulan);
+
+	if (total_kwh_pln[1] < 0) {
+		float kelebihan_energi = -total_kwh_pln[1];
+		total_kwh_pln[1] = 0;
+		biaya_listrik_pln[1] = 0;
+    	printf("| %-20s| %-20.2f| Kelebihan: +%-8.2f|\n", "Listrik (kWh)", total_kwh_pln[0] * jumlahBulan, kelebihan_energi * jumlahBulan);
+		printf("| %-20s| %-20.2f| %-20.2f|\n", "Biaya Listrik (Rp)", biaya_listrik_pln[0] * jumlahBulan, biaya_listrik_pln[1]);
+	} else {
+		printf("| %-20s| %-20.2f| %-20.2f|\n", "Listrik (kWh)", total_kwh_pln[0] * jumlahBulan, total_kwh_pln[1] * jumlahBulan);
+		printf("| %-20s| %-20.2f| %-20.2f|\n", "Biaya Listrik (Rp)", biaya_listrik_pln[0] * jumlahBulan, biaya_listrik_pln[1] * jumlahBulan);
+	}
 	printf("| %-20s| %-20.2f| %-20.2f|\n", "Biaya Alat (Rp)", 0.0, biaya_alat);
 	printf("| %-20s| %-20.2f| %-20.2f|\n", "Total Biaya (Rp)", biaya_listrik_pln[0] * jumlahBulan, biaya_listrik_pln[1] * jumlahBulan + biaya_alat);
 	printf("| %-20s| %-20.2f| %-20.2f|\n", "Emisi Karbon (kg)", emisi_karbon[0] * jumlahBulan, emisi_karbon[1] * jumlahBulan);
 	printf("+---------------------+---------------------+---------------------+\n");
 	printf("Waktu balik modal: %d bulan\n", waktu_balik_modal);
-	printf("%s", finalMessage);
 
 	free(perangkat);
 	return 0; //selesai
