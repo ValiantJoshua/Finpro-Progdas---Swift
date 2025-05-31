@@ -266,45 +266,69 @@ int main (){
 					// Memastikan input tidak bisa bernilai negatif atau lebih dari jumlah sekarang
 					switch (pilihan) {
 						case 1:
-							printf("Jumlah : %d\n", alat[0].jumlah_alat);
-							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[0].jumlah_alat, 0);
-							alat[0].jumlah_alat -= temp;
+							if (alat[0].jumlah_alat > 0){
+								printf("Jumlah : %d\n", alat[0].jumlah_alat);
+								printf("Jumlah yang ingin dikurangi : ");
+								temp = inputWErrorHandlingForInt(alat[0].jumlah_alat, -1);
+								alat[0].jumlah_alat -= temp;
+							} else {
+								printf("Input Invalid, silahkan coba lagi\n");
+							}
 							break;
 
 						case 2:
-							printf("Jumlah : %d\n", alat[1].jumlah_alat);
-							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, 0);
-							alat[1].jumlah_alat -= temp;
+							if (alat[1].jumlah_alat > 0){
+								printf("Jumlah : %d\n", alat[1].jumlah_alat);
+								printf("Jumlah yang ingin dikurangi : ");
+								temp = inputWErrorHandlingForInt(alat[1].jumlah_alat, -1);
+								alat[1].jumlah_alat -= temp;
+							} else {
+								printf("Input Invalid, silahkan coba lagi\n");
+							}
 							break;
-
+							
 						case 3:
-							printf("Jumlah : %d\n", alat[2].jumlah_alat);
-							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[2].jumlah_alat, 0);
-							alat[2].jumlah_alat -= temp;
+							if (alat[2].jumlah_alat > 0){
+								printf("Jumlah : %d\n", alat[2].jumlah_alat);
+								printf("Jumlah yang ingin dikurangi : ");
+								temp = inputWErrorHandlingForInt(alat[2].jumlah_alat, -1);
+								alat[2].jumlah_alat -= temp;
+							} else {
+								printf("Input Invalid, silahkan coba lagi\n");
+							}
 							break;
 
 						case 4:
-							printf("Jumlah : %d\n", alat[3].jumlah_alat);
-							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[3].jumlah_alat,  0);
-							alat[3].jumlah_alat -= temp;
+							if (alat[3].jumlah_alat > 0){
+								printf("Jumlah : %d\n", alat[3].jumlah_alat);
+								printf("Jumlah yang ingin dikurangi : ");
+								temp = inputWErrorHandlingForInt(alat[3].jumlah_alat, -1);
+								alat[3].jumlah_alat -= temp;
+							} else {
+								printf("Input Invalid, silahkan coba lagi\n");
+							}
 							break;
 
 						case 5:
-							printf("Jumlah : %d\n", alat[4].jumlah_alat);
-							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[4].jumlah_alat, 0);
-							alat[4].jumlah_alat -= temp;
+							if (alat[4].jumlah_alat > 0){
+								printf("Jumlah : %d\n", alat[4].jumlah_alat);
+								printf("Jumlah yang ingin dikurangi : ");
+								temp = inputWErrorHandlingForInt(alat[4].jumlah_alat, -1);
+								alat[4].jumlah_alat -= temp;
+							} else {
+								printf("Input Invalid, silahkan coba lagi\n");
+							}
 							break;
 
 						case 6:
-							printf("Jumlah : %d\n", alat[5].jumlah_alat);
-							printf("Jumlah yang ingin dikurangi : ");
-							temp = inputWErrorHandlingForInt(alat[5].jumlah_alat, 0);
-							alat[5].jumlah_alat -= temp;
+							if (alat[5].jumlah_alat > 0){
+								printf("Jumlah : %d\n", alat[5].jumlah_alat);
+								printf("Jumlah yang ingin dikurangi : ");
+								temp = inputWErrorHandlingForInt(alat[5].jumlah_alat, -1);
+								alat[5].jumlah_alat -= temp;
+							} else {
+								printf("Input Invalid, silahkan coba lagi\n");
+							}
 							break;
 
 						case 7:
